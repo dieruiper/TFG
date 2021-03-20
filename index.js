@@ -1,15 +1,18 @@
-const cool = require("cool-ascii-faces");
 const express = require("express");
+const bodyParser = require("body-parser");
+const path = require("path");
+const profesoresAPI = require(path.join(__dirname,"./src/backend/profesoresAPI"));
+const alumnosAPI = require(path.join(__dirname,"./src/backend/alumnosAPI"));
 
 var app = express();
 
-var port = process.env.PORT || 80;
+var port = process.env.PORT || 5000;
 
+app.use(bodyParser.json());
 app.use("/",express.static("./public"));
 
-app.get("/cool", (request,response) => {
-    response.send("<html>"+cool()+"</html>");
-});
+profesoresAPI(app);
+alumnosAPI(app);
 
 app.listen(port,()=> {
     console.log("Server ready");
