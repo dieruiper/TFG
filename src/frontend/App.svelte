@@ -22,7 +22,7 @@
 </script>
 
 <main>
-	<h3>SOS1920-05</h3>
+	<h3>TFG</h3>
 	<Router {routes} />
 </main>
 
