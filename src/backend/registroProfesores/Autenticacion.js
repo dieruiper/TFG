@@ -1,6 +1,6 @@
 const { Router } = require('express')
 const passport = require('passport')
-const User = require('../models/User')
+const User = require('./Usuario')
 const { restart } = require('nodemon')
 
 const router = Router()

@@ -6,14 +6,16 @@
 	import edit_profesores from './profesoresAPI/Edit_profesores.svelte';
 	import edit_alumnos from './alumnosAPI/Edit_alumnos.svelte';
 	import NotFound from './NotFound.svelte';
-
+	import SignUp from "./profesoresAPI/Signup.svelte";
+  	import Login from "./profesoresAPI/Login.svelte";
 	const routes =  {
 
 		"/": Home,
 
 		"/profesoresAPI": profesores,
 		"/alumnosAPI": alumnos,
-
+		"/signup": SignUp,
+		"/login": Login,
 		"/profesores/:nombre/:year": edit_profesores,
 		"/alumnos/:nombre/:year": edit_alumnos,
 
