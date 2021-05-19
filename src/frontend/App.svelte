@@ -2,23 +2,31 @@
 	import Router from 'svelte-spa-router';
 	import Home from './Home.svelte';
 	import profesores from './profesoresAPI/App.svelte';
+	import profesoresAut from "./profesoresAPI/Dashboard.svelte";
 	import alumnos from './alumnosAPI/App.svelte';
-	import edit_profesores from './profesoresAPI/Edit_profesores.svelte';
-	import edit_alumnos from './alumnosAPI/Edit_alumnos.svelte';
+	import alumnosAut from "./alumnosAPI/Listado2.svelte";
 	import NotFound from './NotFound.svelte';
 	import SignUp from "./profesoresAPI/Signup.svelte";
   	import Login from "./profesoresAPI/Login.svelte";
+	import ProlifeProf from "./profesoresAPI/Profile.svelte";
+	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
+	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
+	import Navbar from "./components/Navbar.svelte";
+  	import Loading from "./components/Loading.svelte";
+	import ActualizarProf from './profesoresAPI/ActualizarDatos.svelte';
 	const routes =  {
 
 		"/": Home,
 
 		"/profesoresAPI": profesores,
+		"/profesores": profesoresAut,
 		"/alumnosAPI": alumnos,
+		"/alumnos": alumnosAut,
 		"/signup": SignUp,
 		"/login": Login,
-		"/profesores/:nombre/:year": edit_profesores,
-		"/alumnos/:nombre/:year": edit_alumnos,
-
+		"/profileProf": ProlifeProf,
+		"/profileAlum": ProlifeAlum,
+		"/profesoresAPI/actualizar": ActualizarProf,
 		"*": NotFound
 	};
 </script>

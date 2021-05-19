@@ -1,7 +1,7 @@
 <script>
-	import Listado2 from './Listado2.svelte';
+	import Login from './Login.svelte';
 </script>
 
 <main>
-	<Listado2 />
+	<Login />
 </main>

@@ -28,6 +28,7 @@
     "axios": "^0.21.1",
     "bb": "0.0.1",
     "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "billboard.js": "^1.12.10",
     "body-parser": "^1.19.0",
     "c3": "^0.7.15",
@@ -51,6 +52,6 @@
     "save": "^2.4.0",
     "sirv-cli": "^0.4.5",
     "svelte-spa-router": "^2.1.0",
-    "sveltestrap": "^3.3.3"
+    "sveltestrap": "^3.14.1"
   }
 }

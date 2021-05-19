@@ -17,7 +17,7 @@
         password
       });
       $user = data.user;
-      push("/profesores");
+      push("/alumnos");
     } catch (error) {
       if (error.response.status === 401) {
         username = "";

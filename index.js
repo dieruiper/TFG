@@ -10,8 +10,9 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const app = express();
 
-const profesoresAPI = require(path.join(__dirname,"./src/backend/profesoresAPI"));
-const alumnosAPI = require(path.join(__dirname,"./src/backend/alumnosAPI"));
+
+
+const transactionsRoutes = require(path.join(__dirname,'./src/backend/registroProfesores/transactions.js'));
 const usuario = require(path.join(__dirname,'./src/backend/registroProfesores/Usuario.js'));
 const autenticacion = require(path.join(__dirname,'./src/backend/registroProfesores/Autenticacion.js'));
 
@@ -49,9 +50,7 @@ app.use(passport.session())
 
 app.use("/",express.static("./public"));
 app.use('/api/auth', autenticacion);
-
-profesoresAPI(app);
-alumnosAPI(app);
+app.use('/api/transactions', transactionsRoutes)
 
 app.listen(port, () => {
 	console.log("Server ready");

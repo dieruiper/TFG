@@ -17,7 +17,7 @@
           password
         });
         $user = data.user;
-        push("/api/v1/profesores");
+        push("/profesores");
       } catch (error) {
         if (error.response.data.message === "UserExistsError") {
           username = "";
