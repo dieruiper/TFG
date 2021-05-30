@@ -4,10 +4,13 @@
 	import profesores from './profesoresAPI/App.svelte';
 	import profesoresAut from "./profesoresAPI/Dashboard.svelte";
 	import alumnos from './alumnosAPI/App.svelte';
-	import alumnosAut from "./alumnosAPI/Listado2.svelte";
+	import alumnosAut from "./alumnosAPI/Dashboard.svelte";
 	import NotFound from './NotFound.svelte';
 	import SignUp from "./profesoresAPI/Signup.svelte";
   	import Login from "./profesoresAPI/Login.svelte";
+	import Importar from "./profesoresAPI/Importar.svelte";
+	import SignUpAlum from "./alumnosAPI/Signup.svelte";
+  	import LoginAlum from "./alumnosAPI/Login.svelte";
 	import ProlifeProf from "./profesoresAPI/Profile.svelte";
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
 	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
@@ -17,13 +20,16 @@
 	const routes =  {
 
 		"/": Home,
-
+		"/profesores/importar/": Importar,
+		"/alumnos/:nombre/": alumnosAut,
 		"/profesoresAPI": profesores,
 		"/profesores": profesoresAut,
 		"/alumnosAPI": alumnos,
-		"/alumnos": alumnosAut,
-		"/signup": SignUp,
-		"/login": Login,
+		//"/alumnos": alumnosAut,
+		"/profesoresAPI/signup": SignUp,
+		"/profesoresAPI/login": Login,
+		"/alumnosAPI/signup": SignUpAlum,
+		"/alumnosAPI/login": LoginAlum,
 		"/profileProf": ProlifeProf,
 		"/profileAlum": ProlifeAlum,
 		"/profesoresAPI/actualizar": ActualizarProf,

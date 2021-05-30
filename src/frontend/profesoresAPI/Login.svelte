@@ -66,7 +66,7 @@
     <hr />
     <p>
       Do not have an account ?
-      <a href="#/signup">Sign Up</a>
+      <a href="#/profesoresAPI/signup">Sign Up</a>
     </p>
     <hr />
   </div>

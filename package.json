@@ -13,9 +13,7 @@
     "@rollup/plugin-node-resolve": "^7.0.0",
     "rollup": "^1.32.1",
     "rollup-plugin-livereload": "^1.0.0",
-    "rollup-plugin-svelte": "^5.0.3",
-    "rollup-plugin-terser": "^5.1.2",
-    "svelte": "^3.22.2"
+    "rollup-plugin-terser": "^5.1.2"
   },
   "author": "",
   "license": "ISC",
@@ -31,14 +29,19 @@
     "bcryptjs": "^2.4.3",
     "billboard.js": "^1.12.10",
     "body-parser": "^1.19.0",
+    "bootstrap": "^4.1.1",
     "c3": "^0.7.15",
     "chart.js": "^2.9.3",
     "connect-mongo": "^3.2.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "csv-parser": "^3.0.0",
     "express": "^4.17.1",
     "express-flash": "0.0.2",
     "express-session": "^1.17.1",
+    "generate-password": "^1.6.0",
     "highcharts": "^8.1.0",
+    "jsonwebtoken": "^8.5.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.12.7",
     "morgan": "^1.10.0",
@@ -49,9 +52,12 @@
     "passport-local-mongoose": "^6.1.0",
     "path": "^0.12.7",
     "request": "^2.88.2",
+    "rollup-plugin-svelte": "^5.2.1",
     "save": "^2.4.0",
     "sirv-cli": "^0.4.5",
+    "svelte": "^3.22.2",
     "svelte-spa-router": "^2.1.0",
-    "sveltestrap": "^3.14.1"
+    "sveltestrap": "^3.14.1",
+    "validator": "^13.6.0"
   }
 }

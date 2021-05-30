@@ -1,12 +1,12 @@
 <script>
   import axios from "axios";
-  import { user, transactions } from "../stores";
+  import { user, profesores } from "../stores";
   import { push } from "svelte-spa-router";
   let isActive = false;
   async function logout() {
     await axios.post("/api/auth/logout");
     $user = null;
-    $transactions = [];
+    $profesores = [];
     push("/");
   }
 </script>
@@ -28,7 +28,7 @@
         <span aria-hidden="true" />
       </span>
     </div>
-    <div class="navbar-menu" class:is-active={isActive}>
+    <div class="navbar-menu" class:is-active={isActive}>removeTransaction
       <div class="navbar-end">
         <div class="navbar-item">
           <div class="buttons">

@@ -1,6 +1,10 @@
 const { Schema, model } = require('mongoose')
 
-const TransactionSchema = new Schema({
+const SchemaProfesor = new Schema({
+    profesor: {
+        type: String,
+        required: true,
+    },    
     nombre: {
         type: String,
         required: true,
@@ -23,6 +27,6 @@ const TransactionSchema = new Schema({
     },
 })
 
-const Transaction = model('transaction', TransactionSchema)
+const Profesor = model('profesor', SchemaProfesor)
 
-module.exports = Transaction
+module.exports = Profesor
