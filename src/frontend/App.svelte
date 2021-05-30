@@ -9,7 +9,7 @@
 	import SignUp from "./profesoresAPI/SignUp.svelte";
   	import Login from "./profesoresAPI/Login.svelte";
 	import Importar from "./profesoresAPI/Importar.svelte";
-	import SignUpAlum from "./alumnosAPI/Signup.svelte";
+	import SignUpAlum from "./alumnosAPI/SignUp.svelte";
   	import LoginAlum from "./alumnosAPI/Login.svelte";
 	import ProlifeProf from "./profesoresAPI/Profile.svelte";
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
