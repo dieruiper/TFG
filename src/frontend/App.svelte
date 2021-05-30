@@ -6,7 +6,7 @@
 	import alumnos from './alumnosAPI/App.svelte';
 	import alumnosAut from "./alumnosAPI/Dashboard.svelte";
 	import NotFound from './NotFound.svelte';
-	import SignUp from "./profesoresAPI/Signup.svelte";
+	import SignUp from "./profesoresAPI/SignUp.svelte";
   	import Login from "./profesoresAPI/Login.svelte";
 	import Importar from "./profesoresAPI/Importar.svelte";
 	import SignUpAlum from "./alumnosAPI/Signup.svelte";
