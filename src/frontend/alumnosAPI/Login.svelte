@@ -15,11 +15,11 @@
     try {
       const { data } = await axios.post("/api/authAlum/login", {
         nombre,
-        password,
+        password, 
         profesor
       });
       $userAlum = data.userAlum;
-      push("/alumnos/"+nombre);
+      push("/alumnos/"+nombre+"/carta");
     } catch (error) {
       if (error.response.status === 401) {
         nombre = "";
@@ -74,7 +74,7 @@
         </div>
       </div>
       <div class="control">
-        <input type="submit" href="#/alumnosAPI/{userAlum.nombre}" class="button is-info is-light" value="Submit" />
+        <input type="submit" href="#/alumnosAPI/{userAlum.nombre}/carta" class="button is-info is-light" value="Submit" />
       </div>
     </form>
     <hr />

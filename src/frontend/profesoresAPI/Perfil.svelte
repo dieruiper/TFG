@@ -2,6 +2,8 @@
   import axios from "axios";
   import { user } from "../stores";
   import { push } from "svelte-spa-router";
+  import Button from "sveltestrap/src/Button.svelte";
+  import {pop} from "svelte-spa-router";
   let oldPassword;
   let newPassword;
 
@@ -33,14 +35,14 @@
 
 <div class="container">
   <div class="section">
-    <h2 class="title">Change password</h2>
+    <h2 class="title">Cambiar Contraseña</h2>
     <hr />
     {#if successMessage}
       <div class="notification is-success">{successMessage}</div>
     {/if}
     <form on:submit|preventDefault={changePassword}>
       <div class="field">
-        <label class="label">Old Password</label>
+        <label class="label">Contraseña Antigua</label>
         <div class="control">
           <input
             type="password"
@@ -54,7 +56,7 @@
         </div>
       </div>
       <div class="field">
-        <label class="label">New Password</label>
+        <label class="label">Nueva Contraseña</label>
         <div class="control">
           <input
             type="password"
@@ -64,9 +66,9 @@
         </div>
       </div>
       <div class="control">
-        <input type="submit" class="button is-info is-light" value="Submit" />
+        <input type="submit" class="button is-info is-light" value="Aceptar" />
       </div>
     </form>
   </div>
-
+  <Button outline color="secondary" on:click="{pop}">Atrás</Button>
 </div>

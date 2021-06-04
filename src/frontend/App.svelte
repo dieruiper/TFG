@@ -4,14 +4,17 @@
 	import profesores from './profesoresAPI/App.svelte';
 	import profesoresAut from "./profesoresAPI/Dashboard.svelte";
 	import alumnos from './alumnosAPI/App.svelte';
-	import alumnosAut from "./alumnosAPI/Dashboard.svelte";
+	import alumnosFifa from "./alumnosAPI/DashboardFifa.svelte";
+	import alumnosSuperheroe from "./alumnosAPI/DashboardSuperheroe.svelte";
+	import ElegirCarta from "./alumnosAPI/ElegirCarta.svelte";
 	import NotFound from './NotFound.svelte';
 	import SignUp from "./profesoresAPI/SignUp.svelte";
   	import Login from "./profesoresAPI/Login.svelte";
 	import Importar from "./profesoresAPI/Importar.svelte";
 	import SignUpAlum from "./alumnosAPI/SignUp.svelte";
   	import LoginAlum from "./alumnosAPI/Login.svelte";
-	import ProlifeProf from "./profesoresAPI/Profile.svelte";
+	import PerfilProf from "./profesoresAPI/Perfil.svelte";
+	import Ranking from "./profesoresAPI/Ranking.svelte";
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
 	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
 	import Navbar from "./components/Navbar.svelte";
@@ -20,8 +23,11 @@
 	const routes =  {
 
 		"/": Home,
+		"/alumnos/:nombre/carta": ElegirCarta,
 		"/profesores/importar/": Importar,
-		"/alumnos/:nombre/": alumnosAut,
+		"/profesores/ranking/": Ranking,
+		"/alumnos/:nombre/cartaFifa": alumnosFifa,
+		"/alumnos/:nombre/cartaSuperheroe": alumnosSuperheroe,
 		"/profesoresAPI": profesores,
 		"/profesores": profesoresAut,
 		"/alumnosAPI": alumnos,
@@ -30,7 +36,7 @@
 		"/profesoresAPI/login": Login,
 		"/alumnosAPI/signup": SignUpAlum,
 		"/alumnosAPI/login": LoginAlum,
-		"/profileProf": ProlifeProf,
+		"/profesores/perfil": PerfilProf,
 		"/profileAlum": ProlifeAlum,
 		"/profesoresAPI/actualizar": ActualizarProf,
 		"*": NotFound
@@ -38,24 +44,8 @@
 </script>
 
 <main>
-	<h3>TFG</h3>
 	<Router {routes} />
 </main>
 
 <style>
-	h3 {
-		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
-		color: #1C1A67;
-		text-transform: uppercase;
-		font-size: 4em;
-		font-weight: 100;
-	}
-
-	@media (min-width: 640px) {
-		main {
-			max-width: none;
-		}
-	}
 </style>

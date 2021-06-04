@@ -80,9 +80,7 @@ async function Upload() {
                         cell.innerHTML = cells[j]; 
                     } 
                     if(i>0 && cells[0] !== ""){
-                        let nombreImportadoEntero = cells[1].substring(1,cells[1].length-2)+" "+cells[0].substring(1);
-                        let nombreImportadoCortado = nombreImportadoEntero.split(" ");
-                        let nombreImportado =  nombreImportadoCortado[0]+" "+ nombreImportadoCortado[1].substring(0,3) +" "+ nombreImportadoCortado[2].substring(0,3);                          
+                        let nombreImportado = cells[1].substring(1,cells[1].length-2)+" "+cells[0].substring(1);                         
                         let llamarFuncion = addImportados(nombreImportado)
                     }
                 } /*

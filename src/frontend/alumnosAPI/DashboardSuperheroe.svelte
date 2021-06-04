@@ -5,7 +5,6 @@
 	import Input from "sveltestrap/src/Input.svelte";
 	import Label from "sveltestrap/src/Label.svelte";
 	import FormGroup from "sveltestrap/src/FormGroup.svelte";
-	import Alumno from "../components/Alumno.svelte";
 	import {pop} from "svelte-spa-router";
 	import { onMount } from "svelte";
 	export let params = {};
@@ -104,9 +103,9 @@ async function getAlumno (){
 		</thead>
 		<tbody>
 			<tr>
-				<td><Input required bind:value = "{nuevoAlumno.nombre}" /></td>
+				<td><Input readonly required bind:value = "{nuevoAlumno.nombre}" /></td>
 				<td><Input required bind:value = "{nuevoAlumno.nombreCarta}" /></td>
-				<td><Input required bind:value = "{total}" /></td>
+				<td><Input readonly required bind:value = "{total}" /></td>
 				<td><Input required bind:value = "{nuevoAlumno.posicion}" /></td>
 				<td><Input required bind:value = "{nuevoAlumno.pais}" /></td>
 				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.ritmo}" /></td>
@@ -236,7 +235,7 @@ body:after {
 	position: relative;
 	width: 400px;
 	height: 585px;
-	background-image: url(/images/cartafifa.png);
+	background-image: url(/images/cartasuperheroe.png);
 	background-position: center center;
 	background-size: 100% 100%;
 	background-repeat: no-repeat;
@@ -252,7 +251,7 @@ body:after {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	color: black;
+	color: #e9cc74;
 	padding: 0 1.5rem;
 }
 
@@ -393,12 +392,12 @@ body:after {
 .carta .player-card-bottom .player-info .player-features .player-features-col span .player-feature-value {
 	margin-right: 0.3rem;
 	font-weight: 700;
-	color: black;
+	color: #e9cc74;
 }
 
 .carta .player-card-bottom .player-info .player-features .player-features-col span .player-feature-title {
 	font-weight: 300;
-	color: black;
+	color: #e9cc74;
 }
 
 .carta .player-card-bottom .player-info .player-features .player-features-col:last-child {
