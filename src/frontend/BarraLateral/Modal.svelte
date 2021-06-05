@@ -25,7 +25,6 @@ function overlay_click(e) {
 }
 
 export let show = false;
-export let ordenar = false;
 </script>
 
 <style>

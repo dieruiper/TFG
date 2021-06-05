@@ -33,7 +33,7 @@
   
   <div class="container">
     <div class="section">
-      <h1 class="title">Sign up</h1>
+      <h1 class="title">Regístrate</h1>
       <hr />
       <form on:submit|preventDefault={signup}>
         <div class="field">

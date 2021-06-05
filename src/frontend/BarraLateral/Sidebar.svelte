@@ -6,57 +6,9 @@
     <p></p>
     <Button color= "primary" href="#/profesores/ranking" >Top 5 Alumnos</Button>
     <p></p>
-    <Button color= "danger" on:click={logout}>Cerrar sesión</Button>
-  </nav>
-{/if}
-{#if ordenar}
-  <nav transition:fly={{x: 250, opacity: 1}}>
-    Nombre:
-    <label>
-      <input type=radio bind:group={scoops} value={1}>
-      Ascendiente
-    </label>
-    <label>
-      <input type=radio bind:group={scoops} value={2}>
-      Descendiente
-    </label>
-    <p></p>
-    Trimestre 1:
-    <label>
-      <input type=radio bind:group={scoops} value={3}>
-      Ascendiente
-    </label>
-    <label>
-      <input type=radio bind:group={scoops} value={4}>
-      Descendiente
-    </label>
-    <p></p>
-    Trimestre 2:
-    <label>
-      <input type=radio bind:group={scoops} value={5}>
-      Ascendiente
-    </label>
-    <label>
-      <input type=radio bind:group={scoops} value={6}>
-      Descendiente
-    </label>
-    <p></p>
-    Trimestre 3:
-    <label>
-      <input type=radio bind:group={scoops} value={7}>
-      Ascendiente
-    </label>
-    <label>
-      <input type=radio bind:group={scoops} value={8}>
-      Descendiente
-    </label>
-    <p></p>
-    <Button color= "primary" href="#/profesores/">Aplicar</Button>
-
-  </nav>
-{/if}
+    </nav>
+    {/if}
 <Modal bind:show={modal_show} />
-<Modal bind:ordenar={modal_show_ordenar} />
 
 <script>
 import { fly } from 'svelte/transition';

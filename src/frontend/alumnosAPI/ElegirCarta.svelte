@@ -6,6 +6,8 @@ import axios from "axios";
 import { userAlum } from "../storesAlum";
 import { push } from "svelte-spa-router";
 export let params = {};
+let isActive;
+let usuario;
 let nuevoAlumno = {
 			nombre: "",
 			nombreCarta: "",
@@ -21,17 +23,40 @@ let nuevoAlumno = {
 			profesor: "",
 		};
 onMount(getAlumno);
+async function logout() {
+    await axios.post("/api/auth/logout");
+    $userAlum = null;
+    push("/");
+  }
 
 async function getAlumno (){
 	const {data} = await axios.get("/api/alumnos/"+params.nombre);
 	nuevoAlumno = data[0];
-    console.log(nuevoAlumno.nombre)
+	usuario = nuevoAlumno.nombre
 }
 </script>
 <main>
     {#await nuevoAlumno}
 	Loading alumnos...
 	{:then nuevoAlumno_}
+	<nav class="barraSup">
+		<div class="contenedor">
+		  <div class="navbar-brand">
+			  <span class="title">¡Bienvenido {usuario}!</span>
+			<span
+			  class="navbar-burger burger"
+			  class:is-active={isActive}
+			  on:click={() => (isActive = !isActive)}
+			  aria-expanded="false"
+			  aria-label="menu">
+			  <span aria-hidden="true" />
+			  <span aria-hidden="true" />
+			  <span aria-hidden="true" />
+			</span>
+		  </div>
+			<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
+		</div>
+	  </nav>
     <body>
 <div class="cartafifa" >
 	<div class="cartafifa-parte-arriba">
@@ -545,5 +570,20 @@ body:after {
 
 .cartasuperheroe .player-card-bottom .player-info .player-features .player-features-col:last-child {
 	border: 0;
+}
+
+.barraSup{
+		background-color:#007bff;
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		color:white;
+	}
+	.contenedor{
+	margin-left: 5vw;
+	margin-right: 5vw;
+	display: grid;
+	grid-gap: 1vh;
+	grid-template-rows: auto;
+	grid-template-columns: auto  120px;
 }
 </style>

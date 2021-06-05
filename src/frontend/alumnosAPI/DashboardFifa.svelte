@@ -7,7 +7,10 @@
 	import FormGroup from "sveltestrap/src/FormGroup.svelte";
 	import {pop} from "svelte-spa-router";
 	import { onMount } from "svelte";
+	import { userAlum } from "../storesAlum";
 	export let params = {};
+	let isActive;
+	let usuario;
 	let input = 0;
 	let total = 0;
 	let nuevoAlumno = {
@@ -57,7 +60,14 @@ async function getAlumno (){
 			console.log(total);
 		}
 	}
+	usuario = nuevoAlumno.nombre
 }
+
+async function logout() {
+    await axios.post("/api/auth/logout");
+    $userAlum = null;
+    push("/");
+  }
 	async function guardar(nombre,nombreCarta,total,posicion,pais,ritmo,tiro,pase,regate,defensa,fisico) {
         console.log("Actualizado..."+nombre);
         const res = await axios({
@@ -84,7 +94,26 @@ async function getAlumno (){
         })
     }  
 </script>
+<nav class="barraSup">
+	<div class="contenedor">
+	  <div class="navbar-brand">
+		  <span class="title">¡Bienvenido {usuario}!</span>
+		<span
+		  class="navbar-burger burger"
+		  class:is-active={isActive}
+		  on:click={() => (isActive = !isActive)}
+		  aria-expanded="false"
+		  aria-label="menu">
+		  <span aria-hidden="true" />
+		  <span aria-hidden="true" />
+		  <span aria-hidden="true" />
+		</span>
+	  </div>
+		<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
+	</div>
+  </nav>
 <main>
+	
 	<Table bordered>
 		<thead>
 			<tr>
@@ -122,6 +151,7 @@ async function getAlumno (){
 			</tr>
 		</tbody>
 	</Table>
+	
 	<body>
 	{#await nuevoAlumno}
 	Loading alumnos...
@@ -402,6 +432,21 @@ body:after {
 
 .carta .player-card-bottom .player-info .player-features .player-features-col:last-child {
 	border: 0;
+}
+
+.barraSup{
+		background-color:#007bff;
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		color:white;
+	}
+	.contenedor{
+	margin-left: 5vw;
+	margin-right: 5vw;
+	display: grid;
+	grid-gap: 1vh;
+	grid-template-rows: auto;
+	grid-template-columns: auto  120px;
 }
 </style>
 <!--

@@ -17,9 +17,9 @@
 	import Ranking from "./profesoresAPI/Ranking.svelte";
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
 	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
-	import Navbar from "./components/Navbar.svelte";
   	import Loading from "./components/Loading.svelte";
 	import ActualizarProf from './profesoresAPI/ActualizarDatos.svelte';
+	
 	const routes =  {
 
 		"/": Home,

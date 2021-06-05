@@ -23,6 +23,7 @@
 	let visible = false;
 	let nombre;
     let errorMessage;
+	let usuario;
 	import { userAlum } from "../storesAlum";
 	import { user} from "../stores";
 	let input = 0;
@@ -61,6 +62,8 @@ onMount(getTodo);
 async function getTodo (){
 	console.log("Obteniendo...");
 	const {data} = await axios("/api/profesores");
+	const response2 = await axios("/api/auth/user");
+	usuario = response2.data.user.username;
 	$profesores = data;
 }
 
@@ -288,20 +291,43 @@ async function ordenarNombreAsc(){
 }
 
 let modal_show = false;
+let isActive = false;
+async function logout() {
+    await axios.post("/api/auth/logout");
+    $user = null;
+    $profesores = [];
+    push("/");
+  }
+
   </script>
 
 <main>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 	{#await profesores}
-		Loading profesores...
+	Loading profesores...
 	{:then profesores_}
-	
+	<nav class="barraSup">
+		<div class="contenedor">
+		  <div class="navbar-brand">
+			  <span class="title">¡Bienvenido {usuario}!</span>
+			<span
+			  class="navbar-burger burger"
+			  class:is-active={isActive}
+			  on:click={() => (isActive = !isActive)}
+			  aria-expanded="false"
+			  aria-label="menu">
+			  <span aria-hidden="true" />
+			  <span aria-hidden="true" />
+			  <span aria-hidden="true" />
+			</span>
+		  </div>
+			<Button color="light" class="Ajustes" on:click={() => sidebar_show = !sidebar_show}>Opciones</Button>
+			<Sidebar bind:show={sidebar_show} />
+			<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
+		</div>
+	  </nav>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
-	<button on:click={() => sidebar_show = !sidebar_show}>Ajustes</button>
-	<Sidebar bind:show={sidebar_show} />
 
-	<button on:click={() => sidebar_show_ordenar = !sidebar_show_ordenar}>Ordenar tabla</button>
-	<Sidebar bind:ordenar={sidebar_show_ordenar} />
 	<div>
 		Búsqueda: <Input type="search" bind:value = "{busqueda}" /><Button outline on:click={Buscar(busqueda)} >🔎</Button><Button outline on:click={getTodo} >🔄</Button>
 	</div>
@@ -357,7 +383,6 @@ let modal_show = false;
 <style>
 	main {
 		text-align: left;
-		padding: 1em;
 		margin: 0 auto;
 	}
 
@@ -366,6 +391,19 @@ body {
   justify-content: center;
   display: flex;
 }
-
+.contenedor{
+	margin-left: 5vw;
+	margin-right: 5vw;
+	display: grid;
+	grid-gap: 1vh;
+	grid-template-rows: auto;
+	grid-template-columns: auto 100px 120px;
+}
+.barraSup{
+		background-color:#007bff;
+		padding-top: 2vh;
+		padding-bottom: 2vh;
+		color:white;
+	}
 </style>
   
