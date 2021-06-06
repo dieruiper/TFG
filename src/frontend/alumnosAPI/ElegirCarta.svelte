@@ -57,6 +57,8 @@ async function getAlumno (){
 			<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
 		</div>
 	  </nav>
+	  <hr /> 
+	  <h1>¡Elige dónde quieres ver tus puntos conseguidos!</h1>
     <body>
 <div class="cartafifa" >
 	<div class="cartafifa-parte-arriba">
@@ -72,6 +74,8 @@ async function getAlumno (){
 			</div>
 		</div>
 		<div class="cartafifa-imagen">
+			<img src="https://static.vecteezy.com/system/resources/previews/001/204/011/non_2x/soccer-ball-png.png" alt="Messi" draggable="false"/>
+			
 			<!--<img src="https://selimdoyranli.com/cdn/cartafifa/img/messi.png" alt="Messi" draggable="false"/>-->
 			<div class="player-extra">
 			</div>
@@ -85,39 +89,16 @@ async function getAlumno (){
 			</div>
 			<!-- Player Features-->
 			<div class="player-features">
-				<div class="player-features-col">
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">RIT</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">TIR</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">PAS</div>
-					</span>
-				</div>
-				<div class="player-features-col">
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">REG</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">DEF</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">FIS</div>
-					</span>
-				</div>
+				<p></p>
+			<div class="nombreCartaFifa">
+			<h3>CARTA DE</h3>
+			<h2>FÚTBOL: FIFA</h2>
+			</div>
+				<p><Button color="dark" href="#/alumnos/{nuevoAlumno.nombre}/cartaFifa">Elegir</Button></p>
 			</div>
 		</div>
 	</div>
 </div>
-<Button href="#/alumnos/{nuevoAlumno.nombre}/cartaFifa">Elegir</Button>
 <div class="cartasuperheroe" >
     
 	<div class="cartasuperheroe-parte-arriba">
@@ -135,8 +116,7 @@ async function getAlumno (){
 			</div>
 		</div>
 		<div class="cartasuperheroe-imagen">
-            
-			<!--<img src="https://selimdoyranli.com/cdn/cartafifa/img/messi.png" alt="Messi" draggable="false"/>-->
+            <img class="superfoto" src="http://clipartmag.com/images/superhero-mask-clipart-29.png" alt="Hero" draggable="false"/>
 			<div class="player-extra">
 			</div>
 		</div>
@@ -149,39 +129,16 @@ async function getAlumno (){
 			</div>
 			<!-- Player Features-->
 			<div class="player-features">
-				<div class="player-features-col">
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">RIT</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">TIR</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">PAS</div>
-					</span>
-				</div>
-				<div class="player-features-col">
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">REG</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">DEF</div>
-					</span>
-					<span>
-						<div class="player-feature-value"></div>
-						<div class="player-feature-title">FIS</div>
-					</span>
-				</div>
+			<p></p>
+		<div class="nombreCartaSuper">
+			<h3>CARTA DE </h3>
+			<h2>SUPERHEROES</h2>
+		</div>
+			<p><Button color="primary" href="#/alumnos/{nuevoAlumno.nombre}/cartaSuperheroe">Elegir</Button></p>
 			</div>
 		</div>
 	</div>
 </div>
-<Button href="#/alumnos/{nuevoAlumno.nombre}/cartaSuperheroe">Elegir</Button>
 </body>
 {/await}
 </main>
@@ -192,14 +149,20 @@ async function getAlumno (){
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-
+.superfoto{
+	filter: invert(100%);
+  -webkit-filter: invert(100%);
+}
 body {
 	font-family: 'Saira Semi Condensed', sans-serif;
 	font-weight: 400;
 	position: relative;
 	display: -webkit-box;
 	display: -ms-flexbox;
-	display: flex;
+	display: grid;
+	grid-auto-flow: column;
+	grid-template-rows: auto;
+	grid-template-columns: auto auto;
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
@@ -208,10 +171,26 @@ body {
 	justify-content: center;
 	width: 100%;
 	height: 100vh;
-	min-height: 700px;
 	/*background: url("https://media.playstation.com/is/image/SCEA/fifa-19-stadium-background-blur-01-ps4-us-08jun18?$native_nt$") no-repeat center center/cover;*/
 }
-
+.nombreCartaSuper{
+	background: rgb(203, 225, 253);
+  border-radius: 10px;
+  box-shadow: 0 7px 10px rgba(28, 61, 245, 0.74);
+  text-align: center;
+  padding:20px;
+   margin-left: 25%;
+   margin-right: 25%;
+   margin-bottom: 20px;
+}
+.nombreCartaFifa{
+	background: rgb(0, 0, 0);
+  border-radius: 10px;
+  box-shadow: 0 7px 10px rgba(219, 205, 7, 0.74);
+  text-align: center;
+  padding:20px;
+   margin-bottom: 20px;
+}
 body:after {
 	font-size: 1rem;
 	color: #aaa;
@@ -221,7 +200,20 @@ body:after {
 	z-index: 2;
 }
 
+h1{
+	text-align: center;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	background: rgb(255,231,110);
+background: linear-gradient(90deg, rgba(255,231,110,1) 0%, rgba(0,54,111,1) 100%);
 
+
+	color: white;
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 0 5px 5px rgba(8, 8, 1, 0.74);
+}
 /*
   *** cartafifa styles ***
 */
@@ -316,7 +308,7 @@ body:after {
 }
 
 .cartafifa .cartafifa-parte-arriba .cartafifa-imagen img {
-	width: 100%;
+	width: 80%;
 	height: 100%;
 	-o-object-fit: contain;
 	object-fit: contain;
@@ -352,7 +344,7 @@ body:after {
 .cartafifa .player-card-bottom .player-info {
 	display: block;
 	padding: 0.3rem 0;
-	color: #e9cc74;
+	color: white;
 	width: 90%;
 	margin: 0 auto;
 	height: auto;
@@ -377,13 +369,11 @@ body:after {
 }
 
 .cartafifa .player-card-bottom .player-info .player-features {
-	margin: 0.5rem auto;
-	display: -webkit-box;
-	display: -ms-flexbox;
+	margin: 40px;
 	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 }
 
 .cartafifa .player-card-bottom .player-info .player-features .player-features-col {
@@ -419,7 +409,7 @@ body:after {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
-	color: white;
+	color: black;
 	padding: 0 1.5rem;
 }
 
@@ -474,7 +464,7 @@ body:after {
 }
 
 .cartasuperheroe .cartasuperheroe-parte-arriba .cartasuperheroe-imagen img {
-	width: 100%;
+	width: 80%;
 	height: 100%;
 	-o-object-fit: contain;
 	object-fit: contain;
@@ -510,12 +500,13 @@ body:after {
 .cartasuperheroe .player-card-bottom .player-info {
 	display: block;
 	padding: 0.3rem 0;
-	color: #e9cc74;
+	color: rgb(18, 0, 119);
 	width: 90%;
 	margin: 0 auto;
 	height: auto;
 	position: relative;
 	z-index: 2;
+	font-weight: bold;
 }
 
 .cartasuperheroe .player-card-bottom .player-info .player-name {
@@ -535,13 +526,11 @@ body:after {
 }
 
 .cartasuperheroe .player-card-bottom .player-info .player-features {
-	margin: 0.5rem auto;
-	display: -webkit-box;
-	display: -ms-flexbox;
+	margin: 40px;
 	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
+	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 }
 
 .cartasuperheroe .player-card-bottom .player-info .player-features .player-features-col {
@@ -560,12 +549,12 @@ body:after {
 .cartasuperheroe .player-card-bottom .player-info .player-features .player-features-col span .player-feature-value {
 	margin-right: 0.3rem;
 	font-weight: 700;
-	color: #e9cc74;
+	color: rgb(1, 3, 131);
 }
 
 .cartasuperheroe .player-card-bottom .player-info .player-features .player-features-col span .player-feature-title {
 	font-weight: 300;
-	color: #e9cc74;
+	color: rgb(19, 0, 102);
 }
 
 .cartasuperheroe .player-card-bottom .player-info .player-features .player-features-col:last-child {
