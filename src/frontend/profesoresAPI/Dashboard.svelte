@@ -328,11 +328,13 @@ async function logout() {
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
 
 
-	<div>
-		Búsqueda: <Input type="search" bind:value = "{busqueda}" /><Button outline on:click={Buscar(busqueda)} >🔎</Button><Button outline on:click={getTodo} >🔄</Button>
+	<div class="busqueda">
+		 <Input placeholder="Búsqueda..." class="busqueda2" type="search" bind:value = "{busqueda}" /><Button outline on:click={Buscar(busqueda)} >🔎</Button><Button outline on:click={getTodo} >🔄</Button>
 	</div>
-	
-	<Table bordered>
+	<h2> Listado de tus alumnos</h2>
+	<p></p>
+	<div class="tabla">
+	<Table  bordered hover>
 		<thead>
 			
 			<tr>
@@ -376,14 +378,16 @@ async function logout() {
 			{/each}
 			</tbody>
 	</Table>
+</div>
 	{/await}
-	<Button outline color="secondary" on:click="{pop}">Atrás</Button>
+	
 </main>
 
 <style>
 	main {
 		text-align: left;
 		margin: 0 auto;
+		display: grid;
 	}
 
 body {
@@ -404,6 +408,27 @@ body {
 		padding-top: 2vh;
 		padding-bottom: 2vh;
 		color:white;
+	}
+.busqueda{
+	display: flex;
+	margin: 40px;
+	margin-bottom: 20px;
+	margin-left: 100px;
+	justify-content: flex-start;
+	width: 300px;
+}
+.tabla {
+	padding-left: 100px;
+	width: 1300px;
+}
+h2{
+	text-align: center;
+	background: rgb(211, 231, 240);
+  border-radius: 10px;
+  box-shadow: 0 7px 10px rgba(62, 9, 11, 0.3);
+  padding:20px;
+   margin-left: 25%;
+   margin-right: 25%;
 	}
 </style>
   
