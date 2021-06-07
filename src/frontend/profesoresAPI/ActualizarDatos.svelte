@@ -17,13 +17,32 @@
 	  balance,
       user
 	} from "../stores";
-
+    import {
+        alumnos,
+	} from "../storesAlum";
     let updated_nombre = "";
     let updated_contraseña = "";
     let updated_trim_1 = 0;
     let updated_trim_2 = 0;
     let updated_trim_3 = 0;
 	let busqueda ="";
+    let nuevoAlumno = {
+			nombre: "",
+			nombreCarta: "",
+			valoracion: 0,
+			posicion: "",
+			pais: "",
+			equipo: "",
+			squad: "",
+			ritmo: 0,
+			tiro: 0,
+			pase: 0,
+			regate: 0,
+			defensa: 0,
+			fisico: 0,
+			profesor: "",
+			imagen:"",
+		};
 
     onMount(getTodo);
 
@@ -39,6 +58,14 @@
 
     async function actualizarDatos(nombre,contraseña,trimestre1,trimestre2,trimestre3) {
         console.log("Actualizado..."+nombre);
+        if(trimestre1+trimestre2+trimestre3>99){
+            alert("La suma total debe ser menor que 100\nPor favor compruébelo y actualice")
+        }
+        else{
+            const {data} = await axios.get("/api/alumnos/"+nombre);
+	        nuevoAlumno = data[0];
+            console.log(nuevoAlumno)
+
         const res = await axios({
             method: "PUT",
             url:"/api/profesores/"+nombre,
@@ -53,6 +80,25 @@
                 "Content-Type": "application/json"
             }
         })
+        
+        const response3 = await axios.put("/api/alumnos/"+nombre, {
+		nombre:nuevoAlumno.nombre,
+		nombreCarta:nuevoAlumno.nombreCarta,
+		valoracion: trimestre1 + trimestre2 + trimestre3,
+		posicion: nuevoAlumno.posicion,
+		pais: nuevoAlumno.pais,
+		equipo: nuevoAlumno.equipo,
+		squad: nuevoAlumno.squad,
+		ritmo:nuevoAlumno.ritmo,
+		tiro:nuevoAlumno.tiro,
+		pase:nuevoAlumno.pase,
+		regate:nuevoAlumno.regate,
+		defensa:nuevoAlumno.defensa,
+		fisico:nuevoAlumno.fisico,
+		profesor:nuevoAlumno.profesor,
+		imagen: nuevoAlumno.imagen
+	  });
+        }
     }
 
     async function removeProfesor(id) {

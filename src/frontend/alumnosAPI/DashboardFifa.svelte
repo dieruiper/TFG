@@ -4,6 +4,7 @@
 	import Button from "sveltestrap/src/Button.svelte";
 	import Input from "sveltestrap/src/Input.svelte";
 	import Label from "sveltestrap/src/Label.svelte";
+	import Tooltip from 'sveltestrap/src/Tooltip.svelte';
 	import FormGroup from "sveltestrap/src/FormGroup.svelte";
 	import {pop} from "svelte-spa-router";
 	import { onMount } from "svelte";
@@ -61,6 +62,7 @@ async function removeProfesor(id) {
 async function getAlumno (){
 	const {data} = await axios.get("/api/alumnos/"+params.nombre);
 	nuevoAlumno = data[0];
+	console.log(nuevoAlumno)
 	//const response = await axios("/api/profesores");
 	/*
 	for(let i=0;i<response.data.length;i++){
@@ -85,6 +87,11 @@ async function logout() {
   var imgPath = '/path/to/some/img.png';
 	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,imagen) {
         console.log("Actualizado..."+nombre);
+		if (valoracion <= ((ritmo+tiro+pase+regate+defensa+fisico)/6)){
+			alert("ERROR: La media aritmética de tus atributos no puede ser mayor a tu valoración");
+		}else{
+
+		
 		/*
         nuevoAlumno.imagen.data = fs.readFileSync(imgPath);
 		nuevoAlumno.imagen.contentType = 'image/png';
@@ -120,7 +127,7 @@ async function logout() {
 		getAlumno()
 		alert("Guardado con éxito")
     }  
-
+}
 	let  avatar, fileinput;
 	
 	const onFileSelected =(e)=>{
@@ -152,13 +159,16 @@ async function logout() {
 	  </div>
 		<Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
 		<input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-	  {#if nuevoAlumno.valoracion>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
+	  <!--{#if nuevoAlumno.valoracion>=((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6)}
 	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
 	  {:else}
 	  <Button  color="danger" >No puedes guardar</Button>
-	  {/if}<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
+	  {/if}-->
+	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
+	  <Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
 	</div>
   </nav>
+
 <main>
 	<div class="tabla1">
 	<Table>
@@ -179,8 +189,67 @@ async function logout() {
 			</tr>
 			<tr>
 				<th>Posición</th>
-				<td><Input required bind:value = "{nuevoAlumno.posicion}" /></td>
-
+				<td><Input type="select" name="posicion" id="posicion" bind:value = "{nuevoAlumno.posicion}">
+					{#if nuevoAlumno.valoracion<=50}
+					<option disabled value="DC">Delantero</option>
+					{:else}
+					<option value="DC">Delantero</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=40}
+					<option disabled value="EI">Extremo Izquierda</option>
+					{:else}
+					<option value="EI">Extremo Izquierda</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=40}
+					<option disabled value="ED">Extremo Derecha</option>
+					{:else}
+					<option value="ED">Extremo Derecha</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=30}
+					<option disabled value="MC">Medio Centro</option>
+					{:else}
+					<option value="MC">Medio Centro</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=30}
+					<option disabled value="MI">Medio Izquierda</option>
+					{:else}
+					<option value="MI">Medio Izquierda</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=30}
+					<option disabled value="MD">Medio Derecha</option>
+					{:else}
+					<option value="MD">Medio Derecha</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="DF">Defensa</option>
+					{:else}
+					<option value="DF">Defensa</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="LI">Lateral izquierdo</option>
+					{:else}
+					<option value="LI">Lateral izquierdo</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="LD">Lateral derecho</option>
+					{:else}
+					<option value="LD">Lateral derecho</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=50}
+					<option disabled value="PT">Portero</option>
+					{:else}
+					<option value="PT">Portero</option>
+					{/if}					
+				  </Input><Tooltip target="posicion" placement="right">
+					<strong>VALORACIÓN MÍNIMA PARA DESBLOQUEAR CADA POSICIÓN</strong>
+					<ul>
+						<li>Delantero: 50 </li>
+						<li>Extremos: 40 </li>
+						<li>Mediocentros: 30 </li>
+						<li>Defensas: 15 </li>
+						<li>Portero: 50 </li>
+					</ul>
+				  </Tooltip></td>
 			</tr>
 			<tr>
 				<th>País</th>
@@ -197,17 +266,41 @@ async function logout() {
 			<tr>
 				<th>Equipo</th>
 				<td><Input type="select" name="equipo" id="equipo" bind:value ={nuevoAlumno.equipo}>
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png">Real Betis</option>
+					{:else}
 					<option value="https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png">Real Betis</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="https://brandlogos.net/wp-content/uploads/2012/03/sevilla-fc-vector.jpg">Sevilla FC</option>
+					{:else}
 					<option value="https://brandlogos.net/wp-content/uploads/2012/03/sevilla-fc-vector.jpg">Sevilla FC</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="https://brandlogos.net/wp-content/uploads/2014/07/fc-barcelona-logo.png">Barcelona FC</option>
+					{:else}
 					<option value="https://brandlogos.net/wp-content/uploads/2014/07/fc-barcelona-logo.png">Barcelona FC</option>
+					{/if}
+					{#if nuevoAlumno.valoracion<=15}
+					<option disabled value="https://brandlogos.net/wp-content/uploads/2014/10/real-madrid-logo-preview.png">Real Madrid</option>
+					{:else}
 					<option value="https://brandlogos.net/wp-content/uploads/2014/10/real-madrid-logo-preview.png">Real Madrid</option>
+					{/if}
 					<option value="https://brandlogos.net/wp-content/uploads/2011/06/granada-logo-vector.png">Granada CF</option>
 					<option value="https://brandlogos.net/wp-content/uploads/2012/12/recreativo-de-huelva-logo-vector.png">Recreativo de Huelva</option>
 					<option value="https://brandlogos.net/wp-content/uploads/2012/12/cadiz-logo-vector.png">Cádiz CF</option>
 					<option value="https://brandlogos.net/wp-content/uploads/2012/12/cordoba-logo-vector.png">Córdoba CF</option>
 					<option value="https://brandlogos.net/wp-content/uploads/2012/04/malaga-logo-vector-01.png">Málaga CF</option>
 					<option value="https://brandlogos.net/wp-content/uploads/2012/12/real-jaen-logo-vector.png">Real Jaén</option>
-				</Input></td>
+				</Input><Tooltip target="equipo" placement="right">
+					<strong>VALORACIÓN MÍNIMA PARA DESBLOQUEAR LOS SIGUIENTES EQUIPOS</strong>
+					<ul>
+						<li>Real Betis: 15 </li>
+						<li>Sevilla FC: 15 </li>
+						<li>Barcelona FC: 15 </li>
+						<li>Real Madrid: 15 </li>
+					</ul>
+				  </Tooltip></td>
 			</tr>
 	</Table>
 </div>
@@ -215,7 +308,10 @@ async function logout() {
 	{#await nuevoAlumno}
 	Loading alumnos...
 	{:then nuevoAlumno_}
-
+	<div class="desbloqueado">
+		<p>¡Consigue puntos, desbloquea posiciones y equipos</p>
+		<p>y consigue tu carta FIFA como un jugador profesional!</p>
+	</div>
 <!-- ## carta ## -->
 <div class="carta" >
 	<div class="carta-parte-arriba">
@@ -326,6 +422,22 @@ async function logout() {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.desbloqueado{
+	display: flex;
+	flex-direction: column;
+	height: 90px;
+	width: 520px;
+	padding:20px;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: bold;
+	text-shadow: 2px 2px blanchedalmond;
+	background-color:#e9cc74 ;
+	justify-content: stretch;
+	align-content: stretch;
+	-webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 3px 2px 16px 8px rgba(0,0,0,0.42); 
+	box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 3px 2px 16px 8px rgba(0,0,0,0.42);
+}
 th{
 	background-color: #e9cc74;
 	width: 5rem;
@@ -364,6 +476,7 @@ body {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+	flex-direction: column;
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;

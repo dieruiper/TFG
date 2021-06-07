@@ -72,6 +72,11 @@ async function getTodo (){
 
 async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 		console.log("Añadiendo...");
+		if(trimestre1+trimestre2+trimestre3>99){
+            alert("La suma total debe ser menor que 100\nPor favor compruébelo e inserte")
+        }else{
+
+		
 		const response2 = await axios("/api/auth/user");
 		profesor = response2.data.user.username;
 		const response = await axios.post("/api/profesores", nuevoProfesor);
@@ -91,9 +96,9 @@ async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 		nombre:nombre,
 		nombreCarta:nombreCarta,
 		valoracion: trimestre1 + trimestre2 + trimestre3,
-		posicion: "DC",
+		posicion: "BA",
 		pais: "Spain",
-		equipo: "https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png",
+		equipo: "https://brandlogos.net/wp-content/uploads/2021/01/la-liga-logo.png",
 		squad: "https://img-premium.flaticon.com/png/512/1466/1466114.png?token=exp=1623057007~hmac=f3eb2b926191724ec34f394ca4eab863",
 		ritmo:0,
 		tiro:0,
@@ -114,6 +119,7 @@ async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 			trimestre3: 0,
 	  }
 	}
+}
 async function removeProfesor(id) {
 		console.log("Borrando...");
 	  	const response = await axios.delete("/api/profesores/" + id);

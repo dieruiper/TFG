@@ -72,6 +72,9 @@ async function getAlumno (){
 	 console.log(nuevoAlumno.imagen)
 }
 	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico) {
+		if (valoracion <= ((ritmo+tiro+pase+regate+defensa+fisico)/6)){
+			alert("ERROR: La media aritmética de tus atributos no puede ser mayor a tu valoración");
+		}else{
         console.log("Actualizado..."+nombre);
         const res = await axios({
             method: "PUT",
@@ -101,7 +104,7 @@ async function getAlumno (){
 		getAlumno()
 		alert("Guardado con éxito")
     }  
-
+	}
 	let  avatar, fileinput;
 	
 	const onFileSelected =(e)=>{
@@ -132,11 +135,8 @@ async function getAlumno (){
 	  </div>
 	  <Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
 	  <input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-	  {#if nuevoAlumno.valoracion>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
 	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico)}>Guardar</Button>
-	  {:else}
-	  <Button  color="danger" >No puedes guardar</Button>
-	  {/if}
+	  
 		<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
 	</div>
   </nav>
