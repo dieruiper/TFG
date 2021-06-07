@@ -11,7 +11,8 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const app = express();
 const crypto = require("crypto");
-
+const fs = require('fs');
+const multer = require('multer');
 
 const usuarioAlum = require(path.join(__dirname,'./src/backend/registroAlumnos/AutenticacionAlum.js'));
 const RutasAlumnos = require(path.join(__dirname,'./src/backend/registroAlumnos/alumnosFifa.js'));
@@ -44,6 +45,18 @@ app.use(
         store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
 )
+
+ 
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads')
+    },
+    filename: (req, file, cb) => {
+        cb(null, file.fieldname + '-' + Date.now())
+    }
+});
+ 
+var upload = multer({ storage: storage });
 
 passport.use(usuarioProf.createStrategy())
 passport.serializeUser(usuarioProf.serializeUser())

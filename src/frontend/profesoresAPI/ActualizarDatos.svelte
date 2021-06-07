@@ -317,7 +317,7 @@ async function ordenarNombreAsc(){
 	width: 300px;
 }
 	.tabla {
-	padding-left: 100px;
+    margin: auto auto;
 	width: 1300px;
 }
 </style>

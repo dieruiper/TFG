@@ -8,17 +8,22 @@
 	import {pop} from "svelte-spa-router";
 	import { onMount } from "svelte";
 	import { userAlum } from "../storesAlum";
+	import { findFlagUrlByCountryName } from "country-flags-svg";
 	export let params = {};
 	let isActive;
 	let input = 0;
 	let total = 0;
 	let usuario;
+	let bandera = "";
+
 	let nuevoAlumno = {
 			nombre: "",
 			nombreCarta: "",
 			valoracion: 0,
 			posicion: "",
 			pais: "",
+			equipo: "",
+			squad: "",
 			ritmo: 0,
 			tiro: 0,
 			pase: 0,
@@ -26,6 +31,7 @@
 			defensa: 0,
 			fisico: 0,
 			profesor: "",
+			imagen: ""
 		};
 
 onMount(getAlumno);
@@ -66,8 +72,13 @@ async function getAlumno (){
 		}
 	}
 	usuario = nuevoAlumno.nombre
+	bandera = findFlagUrlByCountryName(nuevoAlumno.pais);
+	console.log(bandera)
+	
+	 console.log(nuevoAlumno.squad)
+	 console.log(nuevoAlumno.imagen)
 }
-	async function guardar(nombre,nombreCarta,total,posicion,pais,ritmo,tiro,pase,regate,defensa,fisico) {
+	async function guardar(nombre,nombreCarta,total,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico) {
         console.log("Actualizado..."+nombre);
         const res = await axios({
             method: "PUT",
@@ -78,6 +89,8 @@ async function getAlumno (){
                 valoracion: total,
                 posicion: posicion,
                 pais: pais,
+				equipo: equipo,
+				squad: squad,
 				ritmo: ritmo,
                 tiro: tiro,
                 pase: pase,
@@ -85,13 +98,29 @@ async function getAlumno (){
                 defensa: defensa,
 				nombre: nombre,
                 fisico: fisico,
-				profesor: nuevoAlumno.profesor
+				profesor: nuevoAlumno.profesor,
+				imagen: nuevoAlumno.imagen
             },
             headers: {
                 "Content-Type": "application/json"
             }
         })
+		getAlumno()
+		alert("Guardado con éxito")
     }  
+
+	let  avatar, fileinput;
+	
+	const onFileSelected =(e)=>{
+  		let image = e.target.files[0];
+            let reader = new FileReader();
+            reader.readAsDataURL(image);
+            reader.onload = e => {
+                 avatar = e.target.result
+            };
+			nuevoAlumno.imagen = avatar;
+			console.log(nuevoAlumno.imagen)
+}
 </script>
 <nav class="barraSup">
 	<div class="contenedor">
@@ -108,47 +137,64 @@ async function getAlumno (){
 		  <span aria-hidden="true" />
 		</span>
 	  </div>
+	  <Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
+	  <input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
+	  {#if total>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
+	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,total,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico)}>Guardar</Button>
+	  {:else}
+	  <Button  color="danger" >No puedes guardar</Button>
+	  {/if}
 		<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
 	</div>
   </nav>
 <main>
-	<Table bordered>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>nombreCarta</th>
-				<th>valoracion</th>
-				<th>posicion</th>
-				<th>pais</th>
-				<th>ritmo</th>
-				<th>tiro</th>
-				<th>pase</th>
-				<th>regate</th>
-				<th>defensa</th>
-				<th>fisico</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><Input readonly required bind:value = "{nuevoAlumno.nombre}" /></td>
-				<td><Input required bind:value = "{nuevoAlumno.nombreCarta}" /></td>
-				<td><Input readonly required bind:value = "{total}" /></td>
-				<td><Input required bind:value = "{nuevoAlumno.posicion}" /></td>
-				<td><Input required bind:value = "{nuevoAlumno.pais}" /></td>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.ritmo}" /></td>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.tiro}" /></td>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.pase}" /></td>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.regate}" /></td>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.defensa}" /></td>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.fisico}" /></td>
-				{#if total>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
-				<td><Button outline color="primary" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,total,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico)}>Guardar</Button></td>
-				{:else}
-				<td><Button outline color="danger" >No puedes guardar</Button></td>
-				{/if}
-			</tr>
-		</tbody>
-	</Table>
+	<div class="tabla1">
+	<Table >
+		<tr>
+			<th>Nombre</th>
+			<td><Input readonly required bind:value = "{nuevoAlumno.nombre}" /></td>
+		</tr>
+		<tr>
+			<th>Nombre carta</th>
+			<td><Input required bind:value = "{nuevoAlumno.nombreCarta}" /></td>
+
+		</tr>
+		<tr>
+			<th>Valoracion</th>
+			<td><Input readonly required bind:value = "{total}" /></td>
+
+		</tr>
+		<tr>
+			<th>País</th>
+			<td><Input type="select" name="country" id="country" bind:value ={nuevoAlumno.pais}>
+				<option value="Argentina">Argentina</option>
+				<option value="Belgium">Bélgica</option>
+				<option value="Brazil">Brasil</option>
+				<option value="France">Francia</option>
+				<option value="Portugal">Portugal</option>
+				<option value="Spain">España</option>
+				<option value="Italy">Italy</option>
+			  </Input></td>
+		</tr>
+		<tr>
+			<th>Squad</th>
+			<td><Input type="select" name="squad" id="squad" bind:value ={nuevoAlumno.squad}>
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466103.png?token=exp=1623057057~hmac=411a7d63ce44df92cce8de3642af3f7b">Catwoman</option>
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466137.png?token=exp=1623057070~hmac=7bc7bebd14822e4a7a687cdcba0cacc8">Superwoman</option>
+				<option value="https://img-premium.flaticon.com/png/512/1388/1388513.png?token=exp=1623057150~hmac=e8e3e24135573bf1ac0a7164dac7fafa">Superheroína</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466117.png">Hulk</option>
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466114.png?token=exp=1623057007~hmac=f3eb2b926191724ec34f394ca4eab863">Flash</option>
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466111.png?token=exp=1623057009~hmac=6cf0bba8a5b3177c922828488ab41452">Deadpool</option>
+				<option value="https://img-premium.flaticon.com/png/512/1674/1674294.png?token=exp=1623058104~hmac=36fc649d92e97644872d071f8f6a38df">Spiderman</option>
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466118.png?token=exp=1623057015~hmac=2fec8dd58e383c0cb235aa5aef658d49">Iron Man</option>
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466102.png?token=exp=1623057055~hmac=0887d22f76eb32e0a2e8bbbc99ab4092">Batman</option>
+				
+				<option value="https://img-premium.flaticon.com/png/512/1466/1466106.png?token=exp=1623057101~hmac=0b3824ff77238e4c09edd4543911ca7e">Capitán América</option>
+				<option value="https://img-premium.flaticon.com/png/512/1352/1352423.png?token=exp=1623057132~hmac=f1cf71ca935b5cf401a8f7c3b6db5f46">Superman</option>
+			</Input></td>
+		</tr>
+</Table>
+</div>
 	<body>
 	{#await nuevoAlumno}
 	Loading alumnos...
@@ -161,15 +207,22 @@ async function getAlumno (){
 			<div class="valoracion">
 				<span>{total}</span>
 			</div>
-			<div class="posicion">
-				<span>{nuevoAlumno.posicion}</span>
-			</div>
 			<div class="pais">
+				<img src={bandera} alt="Pais" draggable="false" class="imagen"/>
 				<!--<img src="https://selimdoyranli.com/cdn/carta/img/argentina.svg" alt="Argentina" draggable="false"/>-->
+			</div>
+			<div class="equipo">
+				<img src={nuevoAlumno.squad} alt="Squad" draggable="false" class="imagen"/>
 			</div>
 		</div>
 		<div class="carta-imagen">
 			<!--<img src="https://selimdoyranli.com/cdn/carta/img/messi.png" alt="Messi" draggable="false"/>-->
+			
+			{#if avatar}
+			<img class="avatar2" src="{avatar}" alt="d" />
+			{:else}
+			<img class="avatar" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="" /> 
+			{/if}
 			<div class="player-extra">
 			</div>
 		</div>
@@ -185,29 +238,29 @@ async function getAlumno (){
 				<div class="player-features-col">
 					<span>
 						<div class="player-feature-value">{nuevoAlumno.ritmo}</div>
-						<div class="player-feature-title">RIT</div>
+						<div class="player-feature-title">ATA</div>
 					</span>
 					<span>
 						<div class="player-feature-value">{nuevoAlumno.tiro}</div>
-						<div class="player-feature-title">TIR</div>
+						<div class="player-feature-title">DEF</div>
 					</span>
 					<span>
 						<div class="player-feature-value">{nuevoAlumno.pase}</div>
-						<div class="player-feature-title">PAS</div>
+						<div class="player-feature-title">INT</div>
 					</span>
 				</div>
 				<div class="player-features-col">
 					<span>
 						<div class="player-feature-value">{nuevoAlumno.regate}</div>
-						<div class="player-feature-title">REG</div>
+						<div class="player-feature-title">VEL</div>
 					</span>
 					<span>
 						<div class="player-feature-value">{nuevoAlumno.defensa}</div>
-						<div class="player-feature-title">DEF</div>
+						<div class="player-feature-title">FUE</div>
 					</span>
 					<span>
 						<div class="player-feature-value">{nuevoAlumno.fisico}</div>
-						<div class="player-feature-title">FIS</div>
+						<div class="player-feature-title">RES</div>
 					</span>
 				</div>
 			</div>
@@ -216,6 +269,34 @@ async function getAlumno (){
 </div>
 {/await}
 </body>
+<div class="tabla2">
+	<Table >
+			<tr>
+				<th>Ataque</th>
+				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.ritmo}" /></td>
+			</tr>
+			<tr>
+				<th>Defensa</th>
+				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.tiro}" /></td>
+				</tr>
+				<tr>
+					<th>Inteligencia</th>
+					<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.pase}" /></td>
+				</tr>
+				<tr>
+					<th>Velocidad</th>
+					<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.regate}" /></td>
+				</tr>
+				<tr>
+					<th>Fuerza</th>
+					<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.defensa}" /></td>
+				</tr>
+				<tr>
+					<th>Resistencia</th>
+					<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.fisico}" /></td>
+				</tr>
+		</Table>
+	</div>
 </main>
 <style>
 	* {
@@ -224,7 +305,37 @@ async function getAlumno (){
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
-
+th{
+	background-color: #e9cc74;
+	width: 5rem;
+	padding-left: 10px;
+	padding-top: 7px;
+}
+td{
+	width: 5rem;
+}
+.tabla1{
+	display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+	margin-left:20vh;
+	border-radius: 20px;
+}
+.tabla2{
+	display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: center;
+	margin-right:20vh;
+	border-radius: 20px;
+}
+main{
+	display: grid;
+    grid-auto-flow: column;
+    background: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2)),url(https://images-na.ssl-images-amazon.com/images/I/61G7XVLHtwL._AC_SX466_.jpg) no-repeat center center/cover;
+	
+}
 body {
 	font-family: 'Saira Semi Condensed', sans-serif;
 	font-weight: 400;
@@ -241,7 +352,9 @@ body {
 	width: 100%;
 	height: 100vh;
 	min-height: 700px;
-	/*background: url("https://media.playstation.com/is/image/SCEA/fifa-19-stadium-background-blur-01-ps4-us-08jun18?$native_nt$") no-repeat center center/cover;*/
+	/*background: url("https://cdn.shopify.com/s/files/1/1699/5389/products/J01783_500x.jpg?v=1570143680") no-repeat center center/cover;*/
+	background: transparent;
+	
 }
 
 body:after {
@@ -275,54 +388,52 @@ body:after {
 
 .carta .carta-parte-arriba {
 	position: relative;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
+    display: grid;
+    grid-template-columns: auto auto;
 	color: #e9cc74;
 	padding: 0 1.5rem;
 }
 
 .carta .carta-parte-arriba .carta-parte-izquierda {
-	position: absolute;
-	line-height: 2.2rem;
-	font-weight: 300;
-	padding: 1.5rem 0;
-	text-transform: uppercase;
+    display: flex;
+    flex-direction: column;
+    padding-left: 50px;
+    padding-top: 15px;
 }
 
 .carta .carta-parte-arriba .carta-parte-izquierda .valoracion {
-	font-size: 2rem;
-}
+	text-align: center;
+    align-items: center;
+    font-size: 50px;
+    height: 60px;
+	}
 
 .carta .carta-parte-arriba .carta-parte-izquierda .posicion {
-	font-size: 1.4rem;
-}
+	text-align: center;
+    font-size: 20px;
+	}
 
 .carta .carta-parte-arriba .carta-parte-izquierda .pais {
-	display: block;
-	width: 2rem;
-	height: 25px;
-	margin: 0.3rem 0;
+	margin: 10px auto auto;
 }
 
 .carta .carta-parte-arriba .carta-parte-izquierda .pais img {
-	width: 100%;
-	height: 100%;
+	width: 60px;
 	-o-object-fit: contain;
 	object-fit: contain;
+	align-self: center;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
-.carta .carta-parte-arriba .carta-parte-izquierda .player-club {
-	display: block;
-	width: 2.1rem;
-	height: 40px;
+.carta .carta-parte-arriba .carta-parte-izquierda .equipo {
+	margin: 15px auto auto;
 }
 
-.carta .carta-parte-arriba .carta-parte-izquierda .player-club img {
-	width: 100%;
-	height: 100%;
-	-o-object-fit: contain;
-	object-fit: contain;
+.carta .carta-parte-arriba .carta-parte-izquierda .equipo img {
+	vertical-align: middle;
+    border-style: none;
+    width: 70px;
 }
 
 .carta .carta-parte-arriba .carta-imagen {
@@ -330,6 +441,10 @@ body:after {
 	height: 200px;
 	margin: 0 auto;
 	overflow: hidden;
+	align-self: flex-end;
+    margin-right: 40px;
+	padding-right: 40px;
+
 }
 
 .carta .carta-parte-arriba .carta-imagen img {
@@ -367,14 +482,15 @@ body:after {
 }
 
 .carta .player-card-bottom .player-info {
-	display: block;
-	padding: 0.3rem 0;
-	color: #e9cc74;
-	width: 90%;
-	margin: 0 auto;
-	height: auto;
-	position: relative;
-	z-index: 2;
+    display: block;
+    padding: 0.3rem 0;
+    color: #e9cc74;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 15px;
+    height: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .carta .player-card-bottom .player-info .player-name {
@@ -443,7 +559,10 @@ body:after {
 	display: grid;
 	grid-gap: 1vh;
 	grid-template-rows: auto;
-	grid-template-columns: auto  120px;
+    grid-template-columns: auto 200px 100px 120px;
+}
+.avatar{
+	 filter: invert(100%); 
 }
 </style>
 <!--

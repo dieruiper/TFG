@@ -170,7 +170,6 @@ body {
 	-ms-flex-pack: center;
 	justify-content: center;
 	width: 100%;
-	height: 100vh;
 	/*background: url("https://media.playstation.com/is/image/SCEA/fifa-19-stadium-background-blur-01-ps4-us-08jun18?$native_nt$") no-repeat center center/cover;*/
 }
 .nombreCartaSuper{
@@ -202,8 +201,9 @@ body:after {
 
 h1{
 	text-align: center;
-	margin-bottom: 10px;
-	margin-top: 10px;
+	margin:10px;
+	margin-left:15%;
+	margin-right:15%;
 	padding-top: 10px;
 	padding-bottom: 10px;
 	background: rgb(255,231,110);

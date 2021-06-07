@@ -27,8 +27,8 @@ router.get('/', ensureLogin, async (req, res) => {
 })
 
 router.post('/', ensureLogin, async (req, res) => {
-    const { nombre, nombreCarta,valoracion, posicion,pais,ritmo,tiro,pase,regate,defensa,fisico,profesor} = req.body
-    const nuevoAlumnoFifa = new AlumnoFifa({nombre, nombreCarta,valoracion, posicion,pais,ritmo,tiro,pase,regate,defensa,fisico,profesor })
+    const { nombre, nombreCarta,valoracion, posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,profesor,imagen} = req.body
+    const nuevoAlumnoFifa = new AlumnoFifa({nombre, nombreCarta,valoracion, posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,profesor,imagen })
 
     try {
         const alumno = await nuevoAlumnoFifa.save()
@@ -79,7 +79,7 @@ router.get('/:nombre', ensureLogin, async (req, res) => {
 
 router.put('/:nombre', ensureLogin, async (req, res) => {
     const nombre = req.params.nombre;
-    const { nombreCarta,valoracion,posicion,pais,ritmo,tiro,pase,regate,defensa,fisico,profesor } = req.body
+    const { nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,profesor,imagen } = req.body
     //const actualizarTransaction = new AlumnoFifa({ nombre, contraseña, trimestre1,trimestre2,trimestre3, user_id: req.user._id })
     
     try {
@@ -91,6 +91,8 @@ router.put('/:nombre', ensureLogin, async (req, res) => {
                 valoracion: valoracion,
                 posicion: posicion,
                 pais: pais,
+                equipo: equipo,
+                squad: squad,
 				ritmo: ritmo,
                 tiro: tiro,
                 pase: pase,
@@ -98,7 +100,8 @@ router.put('/:nombre', ensureLogin, async (req, res) => {
                 defensa: defensa,
 				nombre: nombre,
                 fisico: fisico,
-                profesor:profesor
+                profesor:profesor,
+                imagen: imagen
             })
         if (!alumno) {
             throw new Error('No alumnosFifa')

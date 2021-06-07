@@ -40,14 +40,17 @@
 		nombreCarta:nombreCarta,
 		valoracion: 0,
 		posicion: "DC",
-		pais: "ES",
+		pais: "Spain",
+        equipo: "https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png",
+        squad: "https://img-premium.flaticon.com/png/512/1466/1466114.png?token=exp=1623057007~hmac=f3eb2b926191724ec34f394ca4eab863",
 		ritmo:0,
 		tiro:0,
 		pase:0,
 		regate:0,
 		defensa:0,
 		fisico:0,
-		profesor:profesor
+		profesor:profesor,
+        imagen: imagen
 	  });
         //push("/alumnos/"+nombre);
       

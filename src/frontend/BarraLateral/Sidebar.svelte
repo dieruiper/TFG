@@ -18,9 +18,7 @@ import axios from "axios";
 import { user, profesores } from "../stores";
 import { push } from "svelte-spa-router";
 export let show = false;
-export let ordenar = false;
 let modal_show = false;
-let modal_show_ordenar = false;
 let scoops = 1;
 async function logout() {
     await axios.post("/api/auth/logout");

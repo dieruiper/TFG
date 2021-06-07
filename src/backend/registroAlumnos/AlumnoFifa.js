@@ -16,6 +16,12 @@ const SchemaAlumnoFifa = new Schema({
     pais: {
         type:String
     },
+    equipo: {
+        type:String
+    },
+    squad: {
+        type:String
+    },
     ritmo: {
         type:Number
     },
@@ -36,7 +42,11 @@ const SchemaAlumnoFifa = new Schema({
     },
     profesor: {
         type: String,
-    }
+    },
+    imagen:
+     { data: Buffer,
+     contentType: String }
+        
 })
 
 const AlumnoFifa = model('alumnoFifa', SchemaAlumnoFifa)
