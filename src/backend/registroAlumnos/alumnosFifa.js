@@ -4,14 +4,8 @@ const { json } = require('body-parser')
 
 const router = Router()
 
-function ensureLogin(req, res, next) {
-    if (!req.isAuthenticated()) {
-        return res.status(401).send({ message: 'Not authenticated' })
-    }
-    next()
-}
 
-router.get('/', ensureLogin, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         console.log(req.user._id);
         console.log(req.AlumnoFifa.nombre)
@@ -26,7 +20,7 @@ router.get('/', ensureLogin, async (req, res) => {
     }
 })
 
-router.post('/', ensureLogin, async (req, res) => {
+router.post('/', async (req, res) => {
     const { nombre, nombreCarta,valoracion, posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,profesor,imagen} = req.body
     const nuevoAlumnoFifa = new AlumnoFifa({nombre, nombreCarta,valoracion, posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,profesor,imagen })
 
@@ -41,7 +35,7 @@ router.post('/', ensureLogin, async (req, res) => {
     }
 })
 
-router.delete('/:nombre', ensureLogin, async (req, res) => {
+router.delete('/:nombre', async (req, res) => {
     const { nombre } = req.params
     try {
         const alumno = await AlumnoFifa.findById(nombre)
@@ -64,7 +58,7 @@ router.delete('/:nombre', ensureLogin, async (req, res) => {
     }
 })
 
-router.get('/:nombre', ensureLogin, async (req, res) => {
+router.get('/:nombre', async (req, res) => {
     const nombre = req.params.nombre;
     try {
         const alumno = await AlumnoFifa.find({ nombre:nombre }).exec()
@@ -77,7 +71,7 @@ router.get('/:nombre', ensureLogin, async (req, res) => {
     }
 })
 
-router.put('/:nombre', ensureLogin, async (req, res) => {
+router.put('/:nombre', async (req, res) => {
     const nombre = req.params.nombre;
     const { nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,profesor,imagen } = req.body
     //const actualizarTransaction = new AlumnoFifa({ nombre, contraseña, trimestre1,trimestre2,trimestre3, user_id: req.user._id })

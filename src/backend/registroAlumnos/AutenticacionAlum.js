@@ -25,16 +25,17 @@ router.post('/login', async(req, res) => {
    //Login a registered user
    try {
       const { nombre, password, profesor} = req.body
-      console.log(nombre,password,profesor)
       const userAlum = await UserAlum.findByCredentials(nombre, password, profesor)
-      console.log(userAlum)
+      console.log("1")
       if (!userAlum) {
+         console.log("9")
          return res.status(401).send({error: 'Login failed! Check authentication credentials'})
+         
       }
-      console.log("3")
       const token = await userAlum.generateAuthToken()
-      console.log("4")
+      console.log("2")
       res.send({ userAlum, token })
+      console.log("3")
    } catch (error) {
       console.log("errorLogin")
       res.status(400).send(error)

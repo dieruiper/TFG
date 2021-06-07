@@ -22,10 +22,16 @@
         password, 
         profesor
       });
+      console.log("1")
+      console.log(data)
       $userAlum = data.userAlum;
+      console.log("2")
+      console.log($userAlum)
       push("/alumnos/"+nombre+"/carta");
+      console.log("3")
     } catch (error) {
       if (error.response.status === 401) {
+        console.log("error")
         nombre = "";
         password = "";
         profesor = "";

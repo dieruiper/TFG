@@ -12,7 +12,6 @@
 	export let params = {};
 	let isActive;
 	let input = 0;
-	let total = 0;
 	let usuario;
 	let bandera = "";
 
@@ -64,13 +63,7 @@ async function logout() {
 async function getAlumno (){
 	const {data} = await axios.get("/api/alumnos/"+params.nombre);
 	nuevoAlumno = data[0];
-	const response = await axios("/api/profesores");
-	for(let i=0;i<response.data.length;i++){
-		if (response.data[i].profesor === nuevoAlumno.profesor && nuevoAlumno.nombre === response.data[i].nombre){
-			total = response.data[i].trimestre1 + response.data[i].trimestre2 +response.data[i].trimestre3;
-			console.log(total);
-		}
-	}
+	
 	usuario = nuevoAlumno.nombre
 	bandera = findFlagUrlByCountryName(nuevoAlumno.pais);
 	console.log(bandera)
@@ -78,7 +71,7 @@ async function getAlumno (){
 	 console.log(nuevoAlumno.squad)
 	 console.log(nuevoAlumno.imagen)
 }
-	async function guardar(nombre,nombreCarta,total,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico) {
+	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico) {
         console.log("Actualizado..."+nombre);
         const res = await axios({
             method: "PUT",
@@ -86,7 +79,7 @@ async function getAlumno (){
             data: {
                 nombre: nombre,
                 nombreCarta: nombreCarta,
-                valoracion: total,
+                valoracion: valoracion,
                 posicion: posicion,
                 pais: pais,
 				equipo: equipo,
@@ -139,8 +132,8 @@ async function getAlumno (){
 	  </div>
 	  <Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
 	  <input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-	  {#if total>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
-	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,total,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico)}>Guardar</Button>
+	  {#if nuevoAlumno.valoracion>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
+	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico)}>Guardar</Button>
 	  {:else}
 	  <Button  color="danger" >No puedes guardar</Button>
 	  {/if}
@@ -161,7 +154,7 @@ async function getAlumno (){
 		</tr>
 		<tr>
 			<th>Valoracion</th>
-			<td><Input readonly required bind:value = "{total}" /></td>
+			<td><Input readonly required bind:value = "{nuevoAlumno.valoracion}" /></td>
 
 		</tr>
 		<tr>
@@ -205,7 +198,7 @@ async function getAlumno (){
 	<div class="carta-parte-arriba">
 		<div class="carta-parte-izquierda">
 			<div class="valoracion">
-				<span>{total}</span>
+				<span>{nuevoAlumno.valoracion}</span>
 			</div>
 			<div class="pais">
 				<img src={bandera} alt="Pais" draggable="false" class="imagen"/>

@@ -61,13 +61,14 @@ async function removeProfesor(id) {
 async function getAlumno (){
 	const {data} = await axios.get("/api/alumnos/"+params.nombre);
 	nuevoAlumno = data[0];
-	const response = await axios("/api/profesores");
+	//const response = await axios("/api/profesores");
+	/*
 	for(let i=0;i<response.data.length;i++){
 		if (response.data[i].profesor === nuevoAlumno.profesor && nuevoAlumno.nombre === response.data[i].nombre){
 			total = response.data[i].trimestre1 + response.data[i].trimestre2 +response.data[i].trimestre3;
 			console.log(total);
 		}
-	}
+	}*/
 	usuario = nuevoAlumno.nombre
 	 bandera = findFlagUrlByCountryName(nuevoAlumno.pais);
 	console.log(bandera)
@@ -82,7 +83,7 @@ async function logout() {
     push("/");
   }
   var imgPath = '/path/to/some/img.png';
-	async function guardar(nombre,nombreCarta,total,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,imagen) {
+	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,imagen) {
         console.log("Actualizado..."+nombre);
 		/*
         nuevoAlumno.imagen.data = fs.readFileSync(imgPath);
@@ -97,7 +98,7 @@ async function logout() {
             data: {
                 nombre: nombre,
                 nombreCarta: nombreCarta,
-                valoracion: total,
+                valoracion: valoracion,
                 posicion: posicion,
                 pais: pais,
 				equipo: equipo,
@@ -151,8 +152,8 @@ async function logout() {
 	  </div>
 		<Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
 		<input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-	  {#if total>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
-	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,total,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
+	  {#if nuevoAlumno.valoracion>=(nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)}
+	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
 	  {:else}
 	  <Button  color="danger" >No puedes guardar</Button>
 	  {/if}<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
@@ -173,7 +174,7 @@ async function logout() {
 			</tr>
 			<tr>
 				<th>Valoracion</th>
-				<td><Input readonly required bind:value = "{total}" /></td>
+				<td><Input readonly required bind:value = "{nuevoAlumno.valoracion}" /></td>
 
 			</tr>
 			<tr>
@@ -220,7 +221,7 @@ async function logout() {
 	<div class="carta-parte-arriba">
 		<div class="carta-parte-izquierda">
 			<div class="valoracion">
-				<span>{total}</span>
+				<span>{nuevoAlumno.valoracion}</span>
 			</div>
 			<div class="posicion">
 				<span>{nuevoAlumno.posicion}</span>

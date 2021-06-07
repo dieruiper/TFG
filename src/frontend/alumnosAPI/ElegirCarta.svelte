@@ -30,7 +30,9 @@ async function logout() {
   }
 
 async function getAlumno (){
+	console.log("1")
 	const {data} = await axios.get("/api/alumnos/"+params.nombre);
+	console.log(data[0])
 	nuevoAlumno = data[0];
 	usuario = nuevoAlumno.nombre
 }

@@ -42,7 +42,7 @@
 	let inicializaAlumno = {
 		nombre:"",
 		nombreCarta:"",
-		valoracion: 0,
+		valoracion: nuevoProfesor.trimestre1 + nuevoProfesor.trimestre2 + nuevoProfesor.trimestre3,
 		posicion: "",
 		pais: "",
 		equipo: "",
@@ -90,7 +90,7 @@ async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 		const response3 = await axios.post("/api/alumnos/", {
 		nombre:nombre,
 		nombreCarta:nombreCarta,
-		valoracion: 0,
+		valoracion: trimestre1 + trimestre2 + trimestre3,
 		posicion: "DC",
 		pais: "Spain",
 		equipo: "https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png",
@@ -102,7 +102,7 @@ async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 		defensa:0,
 		fisico:0,
 		profesor:profesor,
-		imagen: imagen
+		imagen: null
 	  });
         //push("/alumnos/"+nombre);
       
