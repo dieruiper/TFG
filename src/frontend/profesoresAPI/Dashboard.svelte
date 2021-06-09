@@ -32,7 +32,7 @@
 	let query;
 	let nuevoProfesor = {
 			nombre: "",
-			contraseña: Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join(''),
+			contraseña: Array(3).fill("$%-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('')+Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('')+Array(7).fill("$%-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join(''),
 			trimestre1: 0,
 			trimestre2: 0,
 			trimestre3: 0,
@@ -78,12 +78,11 @@ async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 
 		
 		const response2 = await axios("/api/auth/user");
-		profesor = response2.data.user.username;
+		profesor = response2.data.user.username; 
 		const response = await axios.post("/api/profesores", nuevoProfesor);
 		$profesores = [response.data, ...$profesores];
 		input = 0;
-		password = nuevoProfesor.contraseña; 
-		
+		password = nuevoProfesor.contraseña.substring(3,13);
         const { data } = await axios.post("/api/authAlum/sign-up", {
           nombre,
           password,
@@ -377,7 +376,7 @@ async function logout() {
 			<tr>
 				<td><Hoverable let:hovering={active}>
 						{#if active}
-							<p>{profesores.contraseña}</p>
+							<p>{password}</p>
 						{:else}
 							<p>{profesores.nombre}</p>
 						{/if}
