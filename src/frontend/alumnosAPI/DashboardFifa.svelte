@@ -87,7 +87,7 @@ async function logout() {
   var imgPath = '/path/to/some/img.png';
 	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,imagen) {
         console.log("Actualizado..."+nombre);
-		if (valoracion >= ((ritmo+tiro+pase+regate+defensa+fisico)/6)){
+		if (valoracion < ((ritmo+tiro+pase+regate+defensa+fisico)/6)){
 			alert("ERROR: La media aritmética de tus atributos no puede ser mayor a tu valoración");
 		}else{
 
