@@ -26,6 +26,7 @@
           password = "";
           profesor = "";
           errorMessage = "Username is already taken";
+          console.log("ya existe")
         }
       }
     }
@@ -67,14 +68,14 @@
               class:is-danger={errorMessage} />
           </div>
           <div class="control">
-            <input type="submit" href="#/alumnosAPI/{userAlum.nombre}" class="button is-info is-light" value="Submit" />
+            <input type="submit" href="#/alumnos/{userAlum.nombre}" class="button is-info is-light" value="Submit" />
           </div>
         </div>
       </form>
       <hr />
       <p>
         Do you have an account ?
-        <a href="#/alumnosAPI/login">Log in here</a>
+        <a href="#/alumnos/login">Log in here</a>
       </p>
       <hr />
     </div>

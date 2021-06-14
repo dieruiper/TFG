@@ -1,18 +1,11 @@
 const express = require("express");
-const generator = require("generate-password");
-const cors = require('cors')
 const bodyParser = require('body-parser')
-const morgan = require('morgan')
 const path = require("path");
 const mongoose = require('mongoose');
 const session = require('express-session');
-const request = require("request");
 const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const app = express();
-const crypto = require("crypto");
-const fs = require('fs');
-const multer = require('multer');
 
 const usuarioAlum = require(path.join(__dirname,'./src/backend/registroAlumnos/AutenticacionAlum.js'));
 const RutasAlumnos = require(path.join(__dirname,'./src/backend/registroAlumnos/alumnosFifa.js'));
@@ -24,9 +17,7 @@ const port = process.env.PORT || 5000;
 const mongoURI = process.env.MONGO_URI;
 const jwt = process.env.JWT_KEY;
 
-app.use(cors())
 app.use(bodyParser.json())
-app.use(morgan('tiny'))
 
 mongoose
     .connect(mongoURI, {
@@ -45,18 +36,6 @@ app.use(
         store: new MongoStore({ mongooseConnection: mongoose.connection }),
     })
 )
-
- 
-var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads')
-    },
-    filename: (req, file, cb) => {
-        cb(null, file.fieldname + '-' + Date.now())
-    }
-});
- 
-var upload = multer({ storage: storage });
 
 passport.use(usuarioProf.createStrategy())
 passport.serializeUser(usuarioProf.serializeUser())

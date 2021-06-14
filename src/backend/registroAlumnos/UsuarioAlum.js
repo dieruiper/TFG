@@ -46,7 +46,7 @@ const userAlumSchema = mongoose.Schema({
  }
  
  userAlumSchema.statics.findByCredentials = async (nombre, password, profesor) => {
-    // Search for a user by email and password.
+    // Search for a user by name and teacher.
     const userAlum = await UserAlum.findOne({nombre, profesor} )
     if (!userAlum) {
        throw new Error({ error: 'Invalid login credentials' })

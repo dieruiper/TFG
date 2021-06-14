@@ -8,7 +8,7 @@
 			<div class="container">
 			  <div class="navbar-brand">
 				<a href="#/" class="navbar-item">
-				  <span class="title">🏠︎</span>
+				  <span class="title"></span>
 				</a>
 				<span
 				  class="navbar-burger burger"
@@ -33,15 +33,15 @@
 			</div>
 		<div class="profesores">
 			
-			<h1><p><Button color="primary" href="#/profesoresAPI"> ACCESO PARA PROFESORES </Button></p></h1>
-			<a href="#/profesoresAPI"><img src="images/profesores.jpg" alt="profesores"  /></a>
+			<h1><p><Button color="primary" href="#/profesores/login"> ACCESO PARA PROFESORES </Button></p></h1>
+			<a href="#/profesores/login"><img src="images/profesores.jpg" alt="profesores"  /></a>
 			<p class="fuente_pequeña"><a  href='https://www.freepik.es/vectores/personas'>Vector de Personas creado por freepik - www.freepik.es</a></p>
 		
 		</div>
 		<div class="alumnos">
 		
-			<h1><p><Button size="x-large" color="primary" href="#/alumnosAPI">ACCESO PARA ALUMNOS </Button></p></h1>
-			<a href="#/alumnosAPI"><img src="images/alumnos.jpg" alt="alumnos" /></a>
+			<h1><p><Button size="x-large" color="primary" href="#/alumnos/login">ACCESO PARA ALUMNOS </Button></p></h1>
+			<a href="#/alumnos/login"><img src="images/alumnos.jpg" alt="alumnos" /></a>
 			<p class="fuente_pequeña"><a href='https://www.freepik.es/vectores/fondo'> Vector de Fondo creado por iconicbestiary - www.freepik.es</a></p>
 		
 		</div>

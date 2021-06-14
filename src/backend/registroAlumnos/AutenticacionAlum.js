@@ -26,16 +26,11 @@ router.post('/login', async(req, res) => {
    try {
       const { nombre, password, profesor} = req.body
       const userAlum = await UserAlum.findByCredentials(nombre, password, profesor)
-      console.log("1")
       if (!userAlum) {
-         console.log("9")
          return res.status(401).send({error: 'Login failed! Check authentication credentials'})
-         
       }
       const token = await userAlum.generateAuthToken()
-      console.log("2")
       res.send({ userAlum, token })
-      console.log("3")
    } catch (error) {
       console.log("errorLogin")
       res.status(400).send(error)

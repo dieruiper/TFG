@@ -24,14 +24,14 @@
 		let profesor = response2.data.user.username;
 		const response = await axios.post("/api/profesores", {
             nombre: nombreImportado,
-			contraseña: Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join(''),
+			contraseña: Array(3).fill("$%-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('')+Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('')+Array(7).fill("$%-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join(''),
 			trimestre1: 0,
 			trimestre2: 0,
 			trimestre3: 0,
         });
 		$profesores = [response.data, ...$profesores];
 		let input = 0;
-		let password = response.data.contraseña;        
+		let password = response.data.contraseña.substring(3,13);;        
         var signupvar = signup(nombreImportado,password,profesor);
         let nombreCartaSplit = nombre.split(" ");
         let nombreCarta = nombreCartaSplit[0]
@@ -50,7 +50,7 @@
 		defensa:0,
 		fisico:0,
 		profesor:profesor,
-        imagen: imagen
+        imagen: ""
 	  });
         //push("/alumnos/"+nombre);
       

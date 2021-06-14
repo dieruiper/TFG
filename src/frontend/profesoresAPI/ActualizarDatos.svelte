@@ -318,7 +318,7 @@ async function ordenarNombreAsc(){
 				<td><input required type="number" step="1" min="0" bind:value="{profesores.trimestre1}"></td>
 				<td><input required type="number" step="1" min="0" bind:value="{profesores.trimestre2}"></td>
 				<td><input required type="number" step="1" min="0" bind:value="{profesores.trimestre3}"></td>
-                <td><Button outline href="#/profesoresAPI/actualizar" color="primary" on:click={() => 
+                <td><Button outline href="#/profesores/actualizar" color="primary" on:click={() => 
                     actualizarDatos(profesores.nombre,profesores.contraseña,profesores.trimestre1,profesores.trimestre2,profesores.trimestre3)}>Actualizar</Button></td>
 				<td><Button outline color= "danger" on:click={() => removeProfesor(profesores._id)} >Borrar</Button></td>
 			</tr>

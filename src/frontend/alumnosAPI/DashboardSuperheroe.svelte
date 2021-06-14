@@ -192,7 +192,10 @@ async function getAlumno (){
 	{#await nuevoAlumno}
 	Loading alumnos...
 	{:then nuevoAlumno_}
-
+	<div class="desbloqueado">
+		<p>¡Consigue puntos, desbloquea las squad de tus superhéroes favoritos
+		y consigue tu carta personalizada para ser un auténtico superhéroe!</p>
+	</div>
 <!-- ## carta ## -->
 <div class="carta" >
 	<div class="carta-parte-arriba">
@@ -202,15 +205,12 @@ async function getAlumno (){
 			</div>
 			<div class="pais">
 				<img src={bandera} alt="Pais" draggable="false" class="imagen"/>
-				<!--<img src="https://selimdoyranli.com/cdn/carta/img/argentina.svg" alt="Argentina" draggable="false"/>-->
 			</div>
 			<div class="equipo">
 				<img src={nuevoAlumno.squad} alt="Squad" draggable="false" class="imagen"/>
 			</div>
 		</div>
 		<div class="carta-imagen">
-			<!--<img src="https://selimdoyranli.com/cdn/carta/img/messi.png" alt="Messi" draggable="false"/>-->
-			
 			{#if avatar}
 			<img class="avatar2" src="{avatar}" alt="d" />
 			{:else}
@@ -264,9 +264,17 @@ async function getAlumno (){
 </body>
 <div class="tabla2">
 	<Table >
+		<tr>
+			<th>Media atributos</th>
+			{#if ((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6).toFixed()>nuevoAlumno.valoracion}
+			<td class="mediarojo">{((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6).toFixed()}</td>
+			{:else}
+			<td class="mediaverde">{((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6).toFixed()}</td>
+			{/if}
+		</tr>
 			<tr>
 				<th>Ataque</th>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.ritmo}" /></td>
+				<td><Input type="number" required placeholder="0" step="1" min=0 max=99 bind:value = "{nuevoAlumno.ritmo}" /></td>
 			</tr>
 			<tr>
 				<th>Defensa</th>
@@ -298,8 +306,19 @@ async function getAlumno (){
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+.mediarojo{
+	background: rgb(202, 83, 83);
+	border-radius: 3px;
+	padding: 6px 12px;
+}
+.mediaverde{
+	background: rgb(121, 202, 83);
+	border-radius: 3px;
+	padding: 6px 12px;
+}
 th{
-	background-color: #e9cc74;
+	background-color: #00044e;
+	color: #e9cc74;
 	width: 5rem;
 	padding-left: 10px;
 	padding-top: 7px;
@@ -326,7 +345,7 @@ td{
 main{
 	display: grid;
     grid-auto-flow: column;
-    background: linear-gradient(rgba(255,255,255,.2), rgba(255,255,255,.2)),url(https://images-na.ssl-images-amazon.com/images/I/61G7XVLHtwL._AC_SX466_.jpg) no-repeat center center/cover;
+    background: linear-gradient(rgba(255,255,255,.2), rgba(46, 37, 37, 0.2)),url(https://images-na.ssl-images-amazon.com/images/I/61G7XVLHtwL._AC_SX466_.jpg) no-repeat center center/cover;
 	
 }
 body {
@@ -336,6 +355,7 @@ body {
 	display: -webkit-box;
 	display: -ms-flexbox;
 	display: flex;
+	flex-direction: column;
 	-webkit-box-align: center;
 	-ms-flex-align: center;
 	align-items: center;
@@ -556,6 +576,23 @@ body:after {
 }
 .avatar{
 	 filter: invert(100%); 
+}
+.desbloqueado{
+	display: flex;
+	flex-direction: column;
+	height: 90px;
+	width: 650px;
+	padding:20px;
+	border-radius: 5px;
+	font-size: 18px;
+	font-weight: bold;
+	color: #e9cc74;
+    text-shadow: 2px 2px #5d3f12;
+	background-color:#00044e ;
+	justify-content: stretch;
+	align-content: stretch;
+	-webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 3px 2px 16px 8px rgba(0,0,0,0.42); 
+	box-shadow: -2px 0px 1px -7px #e6bc3d, 0px 0px 1px -2px #e6c963, 1px 2px 20px 5px rgb(230 201 116);
 }
 </style>
 <!--

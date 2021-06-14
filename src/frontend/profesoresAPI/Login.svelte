@@ -25,7 +25,7 @@
       if (error.response.status === 401) {
         username = "";
         password = "";
-        errorMessage = "Invalid Credentials";
+        errorMessage = "Credenciales incorrectas";
       }
     }
   }
@@ -56,7 +56,7 @@
     <div class="thumbnail"><img alt="gorro" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg"/></div>
     <hr />
     {#if errorMessage}
-      <p class="help is-danger">{errorMessage}</p>
+      <p class="errorlogin">{errorMessage}</p>
     {/if}
     <form on:submit|preventDefault={login}>
       <div class="field">
@@ -90,7 +90,7 @@
     <hr />
     <h6>
       ¿No tienes cuenta todavía?
-      <p><a href="#/profesoresAPI/signup">¡Regístrate!</a></p>
+      <p><a href="#/profesores/signup">¡Regístrate!</a></p>
     </h6>
     <hr />
     <Button outline color="secondary" on:click="{pop}">Atrás</Button>
@@ -98,6 +98,12 @@
   
 </div>
 <style>
+  .errorlogin{
+    background-color: rgba(247, 128, 128, 0.637);
+    border-radius: 3px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
   	.barraSup{
 		background-color:#007bff;
 		padding-top: 2vh;
@@ -179,5 +185,6 @@
 .form .register-form {
   display: none;
 }
+
 
 </style>

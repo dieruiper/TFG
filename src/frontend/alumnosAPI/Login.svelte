@@ -22,20 +22,22 @@
         password, 
         profesor
       });
-      console.log("1")
       console.log(data)
       $userAlum = data.userAlum;
-      console.log("2")
       console.log($userAlum)
       push("/alumnos/"+nombre+"/carta");
-      console.log("3")
     } catch (error) {
       if (error.response.status === 401) {
-        console.log("error")
         nombre = "";
         password = "";
         profesor = "";
-        errorMessage = "Invalid Credentials";
+        errorMessage = "Usuario o contraseña incorrecto";
+      }
+      if (error.response.status === 400) {
+        nombre = "";
+        password = "";
+        profesor = "";
+        errorMessage = "Credenciales incorrectas";
       }
     }
   }
@@ -66,7 +68,7 @@
     <div class="thumbnail"><img alt="gorro" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/169963/hat.svg"/></div>
     <hr />
     {#if errorMessage}
-      <p class="help is-danger">{errorMessage}</p>
+      <p class="errorlogin">{errorMessage}</p>
     {/if}
     <form on:submit|preventDefault={login}>
       <div class="field">
@@ -104,7 +106,7 @@
         </div>
       </div>
       <div class="control">
-        <Input color="primary" type="submit" href="#/alumnosAPI/{userAlum.nombre}/carta" class="button is-info is-light" value="Aceptar" />
+        <Input color="primary" type="submit" href="#/alumnos/{userAlum.nombre}/carta" class="button is-info is-light" value="Aceptar" />
       </div>
     </form>
     <hr />
@@ -194,4 +196,11 @@
 .form .register-form {
   display: none;
 }
+
+.errorlogin{
+    background-color: rgba(247, 128, 128, 0.637);
+    border-radius: 3px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
 </style>

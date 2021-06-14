@@ -16,9 +16,9 @@ router.get('/user', (req, res) => {
 router.post(
     '/sign-up',
     async (req, res, next) => {
-        const { username, password } = req.body
+        const { username, email, password } = req.body
         try {
-            await User.register({ username }, password)
+            await User.register({ username, email }, password)
         } catch (error) {
             if (error.name === 'UserExistsError') {
                 return res.status(400).json({ message: 'UserExistsError' })

@@ -17,7 +17,6 @@
 	import Ranking from "./profesoresAPI/Ranking.svelte";
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
 	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
-  	import Loading from "./components/Loading.svelte";
 	import ActualizarProf from './profesoresAPI/ActualizarDatos.svelte';
 	
 	const routes =  {
@@ -28,17 +27,17 @@
 		"/profesores/ranking/": Ranking,
 		"/alumnos/:nombre/cartaFifa": alumnosFifa,
 		"/alumnos/:nombre/cartaSuperheroe": alumnosSuperheroe,
-		"/profesoresAPI": profesores,
+		"/profesores": profesores,
 		"/profesores": profesoresAut,
-		"/alumnosAPI": alumnos,
+		"/alumnos": alumnos,
 		//"/alumnos": alumnosAut,
-		"/profesoresAPI/signup": SignUp,
-		"/profesoresAPI/login": Login,
-		"/alumnosAPI/signup": SignUpAlum,
-		"/alumnosAPI/login": LoginAlum,
+		"/profesores/signup": SignUp,
+		"/profesores/login": Login,
+		"/alumnos/signup": SignUpAlum,
+		"/alumnos/login": LoginAlum,
 		"/profesores/perfil": PerfilProf,
 		"/profileAlum": ProlifeAlum,
-		"/profesoresAPI/actualizar": ActualizarProf,
+		"/profesores/actualizar": ActualizarProf,
 		"*": NotFound
 	};
 </script>

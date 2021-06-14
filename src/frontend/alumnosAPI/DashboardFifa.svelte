@@ -197,42 +197,27 @@ async function logout() {
 					{/if}
 					{#if nuevoAlumno.valoracion<=40}
 					<option disabled value="EI">Extremo Izquierda</option>
-					{:else}
-					<option value="EI">Extremo Izquierda</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=40}
 					<option disabled value="ED">Extremo Derecha</option>
 					{:else}
+					<option value="EI">Extremo Izquierda</option>
 					<option value="ED">Extremo Derecha</option>
 					{/if}
 					{#if nuevoAlumno.valoracion<=30}
 					<option disabled value="MC">Medio Centro</option>
-					{:else}
-					<option value="MC">Medio Centro</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=30}
 					<option disabled value="MI">Medio Izquierda</option>
-					{:else}
-					<option value="MI">Medio Izquierda</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=30}
 					<option disabled value="MD">Medio Derecha</option>
 					{:else}
+					<option value="MC">Medio Centro</option>
+					<option value="MI">Medio Izquierda</option>
 					<option value="MD">Medio Derecha</option>
 					{/if}
 					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="DF">Defensa</option>
-					{:else}
-					<option value="DF">Defensa</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="LI">Lateral izquierdo</option>
-					{:else}
-					<option value="LI">Lateral izquierdo</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="LD">Lateral derecho</option>
 					{:else}
+					<option value="DF">Defensa</option>
+					<option value="LI">Lateral izquierdo</option>
 					<option value="LD">Lateral derecho</option>
 					{/if}
 					{#if nuevoAlumno.valoracion<=50}
@@ -253,7 +238,7 @@ async function logout() {
 			</tr>
 			<tr>
 				<th>País</th>
-				<td><Input type="select" name="country" id="country" bind:value ={nuevoAlumno.pais}>
+				<td><Input type="select" name="pais" id="pais" bind:value ={nuevoAlumno.pais}>
 					<option value="Argentina">Argentina</option>
 					<option value="Belgium">Bélgica</option>
 					<option value="Brazil">Brasil</option>
@@ -268,22 +253,13 @@ async function logout() {
 				<td><Input type="select" name="equipo" id="equipo" bind:value ={nuevoAlumno.equipo}>
 					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png">Real Betis</option>
-					{:else}
-					<option value="https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png">Real Betis</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="https://brandlogos.net/wp-content/uploads/2012/03/sevilla-fc-vector.jpg">Sevilla FC</option>
-					{:else}
-					<option value="https://brandlogos.net/wp-content/uploads/2012/03/sevilla-fc-vector.jpg">Sevilla FC</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="https://brandlogos.net/wp-content/uploads/2014/07/fc-barcelona-logo.png">Barcelona FC</option>
-					{:else}
-					<option value="https://brandlogos.net/wp-content/uploads/2014/07/fc-barcelona-logo.png">Barcelona FC</option>
-					{/if}
-					{#if nuevoAlumno.valoracion<=15}
 					<option disabled value="https://brandlogos.net/wp-content/uploads/2014/10/real-madrid-logo-preview.png">Real Madrid</option>
 					{:else}
+					<option value="https://brandlogos.net/wp-content/uploads/2012/11/real-betis-logo-vector.png">Real Betis</option>
+					<option value="https://brandlogos.net/wp-content/uploads/2012/03/sevilla-fc-vector.jpg">Sevilla FC</option>
+					<option value="https://brandlogos.net/wp-content/uploads/2014/07/fc-barcelona-logo.png">Barcelona FC</option>
 					<option value="https://brandlogos.net/wp-content/uploads/2014/10/real-madrid-logo-preview.png">Real Madrid</option>
 					{/if}
 					<option value="https://brandlogos.net/wp-content/uploads/2011/06/granada-logo-vector.png">Granada CF</option>
@@ -312,7 +288,6 @@ async function logout() {
 		<p>¡Consigue puntos, desbloquea posiciones y equipos</p>
 		<p>y consigue tu carta FIFA como un jugador profesional!</p>
 	</div>
-<!-- ## carta ## -->
 <div class="carta" >
 	<div class="carta-parte-arriba">
 		<div class="carta-parte-izquierda">
@@ -323,7 +298,6 @@ async function logout() {
 				<span>{nuevoAlumno.posicion}</span>
 			</div>
 			<div class="pais">
-				<!--<img src="https://selimdoyranli.com/cdn/carta/img/argentina.svg" alt="Argentina" draggable="false"/>-->
 				<img src={bandera} alt="Pais" draggable="false" class="imagen"/>
 			</div>
 			<div class="equipo">
@@ -332,51 +306,45 @@ async function logout() {
 			
 		</div>
 		<div class="carta-imagen">
-			<!--<img src="https://selimdoyranli.com/cdn/carta/img/messi.png" alt="Messi" draggable="false"/>-->
-			
 			{#if avatar}
 			<img class="avatar" src="{avatar}" alt="d" />
 			{:else}
 			<img class="avatar" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="" /> 
 			{/if}
-			<div class="player-extra">
-			</div>
 		</div>
 	</div>
-	<div class="player-card-bottom">
-		<div class="player-info">
-			<!-- Player Name-->
-			<div class="player-name">
+	<div class="carta-parte-abajo">
+		<div class="estadisticas">
+			<div class="nombre-carta">
 				<span>{nuevoAlumno.nombreCarta}</span>
 			</div>
-			<!-- Player Features-->
-			<div class="player-features">
-				<div class="player-features-col">
+			<div class="atributos">
+				<div class="atributos-col">
 					<span>
-						<div class="player-feature-value">{nuevoAlumno.ritmo}</div>
-						<div class="player-feature-title">RIT</div>
+						<div class="valor">{nuevoAlumno.ritmo}</div>
+						<div class="titulo">RIT</div>
 					</span>
 					<span>
-						<div class="player-feature-value">{nuevoAlumno.tiro}</div>
-						<div class="player-feature-title">TIR</div>
+						<div class="valor">{nuevoAlumno.tiro}</div>
+						<div class="titulo">TIR</div>
 					</span>
 					<span>
-						<div class="player-feature-value">{nuevoAlumno.pase}</div>
-						<div class="player-feature-title">PAS</div>
+						<div class="valor">{nuevoAlumno.pase}</div>
+						<div class="titulo">PAS</div>
 					</span>
 				</div>
-				<div class="player-features-col">
+				<div class="atributos-col">
 					<span>
-						<div class="player-feature-value">{nuevoAlumno.regate}</div>
-						<div class="player-feature-title">REG</div>
+						<div class="valor">{nuevoAlumno.regate}</div>
+						<div class="titulo">REG</div>
 					</span>
 					<span>
-						<div class="player-feature-value">{nuevoAlumno.defensa}</div>
-						<div class="player-feature-title">DEF</div>
+						<div class="valor">{nuevoAlumno.defensa}</div>
+						<div class="titulo">DEF</div>
 					</span>
 					<span>
-						<div class="player-feature-value">{nuevoAlumno.fisico}</div>
-						<div class="player-feature-title">FIS</div>
+						<div class="valor">{nuevoAlumno.fisico}</div>
+						<div class="titulo">FIS</div>
 					</span>
 				</div>
 			</div>
@@ -388,29 +356,39 @@ async function logout() {
 </body>
 <div class="tabla2">
 <Table >
+	<tr>
+		<th>Media atributos</th>
+		{#if ((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6).toFixed()>nuevoAlumno.valoracion}
+		<td class="mediarojo">
+			{((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6).toFixed()}</td>
+		{:else}
+		<td class="mediaverde">
+			{((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6).toFixed()}</td>
+		{/if}
+	</tr>
 		<tr>
 			<th>Ritmo</th>
-			<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.ritmo}" /></td>
+			<td><Input type="number" required placeholder="0" step="1" min=0 max=99 bind:value = "{nuevoAlumno.ritmo}" /></td>
 		</tr>
 		<tr>
 			<th>Tiro</th>
-			<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.tiro}" /></td>
+			<td><Input type="number" required placeholder="0" step="1" min=0  max=99 bind:value = "{nuevoAlumno.tiro}" /></td>
 			</tr>
 			<tr>
 				<th>Pase</th>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.pase}" /></td>
+				<td><Input type="number" required placeholder="0" step="1" min=0 max=99 bind:value = "{nuevoAlumno.pase}" /></td>
 			</tr>
 			<tr>
 				<th>Regate</th>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.regate}" /></td>
+				<td><Input type="number" required placeholder="0" step="1" min=0 max=99 bind:value = "{nuevoAlumno.regate}" /></td>
 			</tr>
 			<tr>
 				<th>Defensa</th>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.defensa}" /></td>
+				<td><Input type="number" required placeholder="0" step="1" min=0 max=99 bind:value = "{nuevoAlumno.defensa}" /></td>
 			</tr>
 			<tr>
 				<th>Físico</th>
-				<td><Input type="number" required placeholder="0" step="1" min=0 bind:value = "{nuevoAlumno.fisico}" /></td>
+				<td><Input type="number" required placeholder="0" step="1" min=0 max=99 bind:value = "{nuevoAlumno.fisico}" /></td>
 			</tr>
 	</Table>
 </div>
@@ -422,6 +400,26 @@ async function logout() {
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+main{
+	display: grid;
+    grid-auto-flow: column;
+    background: url(https://media.playstation.com/is/image/SCEA/fifa-19-stadium-background-blur-01-ps4-us-08jun18?$native_nt$) no-repeat center center/cover;
+}
+
+body {
+	font-family: 'Saira Semi Condensed', sans-serif;
+	font-weight: 400;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	height: 100vh;
+	min-height: 700px;
+	background: transparent;
+}
+
 .desbloqueado{
 	display: flex;
 	flex-direction: column;
@@ -432,21 +430,26 @@ async function logout() {
 	font-size: 18px;
 	font-weight: bold;
 	text-shadow: 2px 2px blanchedalmond;
-	background-color:#e9cc74 ;
+	background-color:#eed882 ;
 	justify-content: stretch;
 	align-content: stretch;
 	-webkit-box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 3px 2px 16px 8px rgba(0,0,0,0.42); 
 	box-shadow: -10px 0px 13px -7px #000000, 10px 0px 13px -7px #000000, 3px 2px 16px 8px rgba(0,0,0,0.42);
 }
+
 th{
-	background-color: #e9cc74;
-	width: 5rem;
+	background-color: #eed882;
+	width: 80px;
+	min-width: 80px;
 	padding-left: 10px;
 	padding-top: 7px;
 }
+
 td{
-	width: 5rem;
+	width: 80px;
+	min-width: 80px;
 }
+
 .tabla1{
 	display: flex;
     flex-direction: column;
@@ -455,6 +458,7 @@ td{
 	margin-left:20vh;
 	border-radius: 20px;
 }
+
 .tabla2{
 	display: flex;
     flex-direction: column;
@@ -463,80 +467,37 @@ td{
 	margin-right:20vh;
 	border-radius: 20px;
 }
-main{
-	display: grid;
-    grid-auto-flow: column;
-    background: url(https://media.playstation.com/is/image/SCEA/fifa-19-stadium-background-blur-01-ps4-us-08jun18?$native_nt$) no-repeat center center/cover;
+
+.mediarojo{
+	background: rgb(202, 83, 83);
+	border-radius: 3px;
+	padding: 6px 12px;
+}
+.mediaverde{
+	background: rgb(121, 202, 83);
+	border-radius: 3px;
+	padding: 6px 12px;
 }
 
-body {
-	font-family: 'Saira Semi Condensed', sans-serif;
-	font-weight: 400;
-	position: relative;
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-	flex-direction: column;
-	-webkit-box-align: center;
-	-ms-flex-align: center;
-	align-items: center;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-	width: 100%;
-	height: 100vh;
-	min-height: 700px;
-	/*background: url("https://media.playstation.com/is/image/SCEA/fifa-19-stadium-background-blur-01-ps4-us-08jun18?$native_nt$") no-repeat center center/cover;*/
-	background: transparent;
-}
-
-body:after {
-	font-size: 1rem;
-	color: #aaa;
-	position: fixed;
-	bottom: 20px;
-	right: 20px;
-	z-index: 2;
-}
-
-
-/*
-  *** carta styles ***
-*/
-.country {
+.pais {
     margin: 10px;
     padding: 4px 6px;
     display: inline-block;
-    font-family: tahoma;
-    font-size: 12px
 }
-.country i {
-    background: url(https://dl.dropboxusercontent.com/s/izcyieh1iatr4n5/flags.png) no-repeat;
-    display: inline-block;
-    width: 16px;
-    height: 11px;
-}
+
 .carta {
-	position: relative;
 	width: 400px;
 	height: 585px;
 	background-image: url(/images/cartafifa.png);
-	background-position: center center;
 	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	padding: 3.8rem 0;
-	z-index: 2;
-	-webkit-transition: 200ms ease-in;
-	-o-transition: 200ms ease-in;
-	transition: 200ms ease-in;
+	padding: 58px 0;
 }
 
 .carta .carta-parte-arriba {
-	position: relative;
     display: grid;
     grid-template-columns: auto auto;
     color: black;
-    padding: 0 1.5rem;
+    padding: 0 25px;
 }
 
 .carta .carta-parte-arriba .carta-parte-izquierda {
@@ -564,9 +525,6 @@ body:after {
 
 .carta .carta-parte-arriba .carta-parte-izquierda .pais img {
 	width: 60px;
-	-o-object-fit: contain;
-	object-fit: contain;
-	align-self: center;
 }
 
 
@@ -575,16 +533,12 @@ body:after {
 }
 
 .carta .carta-parte-arriba .carta-parte-izquierda .equipo img {
-	vertical-align: middle;
-    border-style: none;
     width: 60px;
 }
 
 .carta .carta-parte-arriba .carta-imagen {
 	width: 200px;
 	height: 200px;
-	margin: 0 auto;
-	overflow: hidden;
 	align-self: flex-end;
     margin-right: 40px;
 	padding-right: 40px;
@@ -593,102 +547,54 @@ body:after {
 .carta .carta-parte-arriba .carta-imagen img {
 	width: 100%;
 	height: 100%;
-	-o-object-fit: contain;
 	object-fit: contain;
 	position: relative;
-	right: -1.5rem;
-	bottom: 0;
+	right: -25px;
 }
 
-.carta .carta-parte-arriba .carta-imagen .player-extra {
-	position: absolute;
-	right: 0;
-	bottom: -0.5rem;
-	overflow: hidden;
-	font-size: 1rem;
-	font-weight: 700;
-	text-transform: uppercase;
-	width: 100%;
-	height: 2rem;
-	padding: 0 1.5rem;
-	text-align: right;
-	background: none;
-}
-
-.carta .carta-parte-arriba .carta-imagen .player-extra span {
-	margin-left: 0.6rem;
-	text-shadow: 2px 2px #333;
-	
-}
-
-.carta .player-card-bottom {
-	position: relative;
-}
-
-.carta .player-card-bottom .player-info {
-	display: block;
-    padding: 0.3rem 0;
+.carta .carta-parte-abajo .estadisticas {
     padding-top: 25px;
-    color: black;
-    width: 90%;
+    width: 80%;
     margin: 0 auto;
-    height: auto;
-    position: relative;
-    z-index: 2;
 }
 
-.carta .player-card-bottom .player-info .player-name {
-	width: 100%;
-	display: block;
+.carta .carta-parte-abajo .estadisticas .nombre-carta {
 	text-align: center;
-	font-size: 1.6rem;
+	font-size: 25px;
 	text-transform: uppercase;
-	border-bottom: 2px solid rgba(233, 204, 116, 0.1);
-	padding-bottom: 0.3rem;
-	overflow: hidden;
+	border-bottom: 2px solid rgba(233, 204, 116, 0.397);
+	padding-bottom: 5px;
 	font-weight: bold;
 }
 
-.carta .player-card-bottom .player-info .player-name span {
-	display: block;
-}
-
-.carta .player-card-bottom .player-info .player-features {
-	margin: 0.5rem auto;
-	display: -webkit-box;
-	display: -ms-flexbox;
+.carta .carta-parte-abajo .estadisticas .atributos {
+	margin: 10px auto;
 	display: flex;
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
 	justify-content: center;
 }
 
-.carta .player-card-bottom .player-info .player-features .player-features-col {
+.carta .carta-parte-abajo .estadisticas .atributos .atributos-col {
 	border-right: 2px solid rgba(233, 204, 116, 0.979);
-	padding: 0 2.3rem;
+	padding: 0 40px;
 }
 
-.carta .player-card-bottom .player-info .player-features .player-features-col span {
-	display: -webkit-box;
-	display: -ms-flexbox;
+.carta .carta-parte-abajo .estadisticas .atributos .atributos-col span {
 	display: flex;
-	font-size: 1.2rem;
+	font-size: 20px;
 	text-transform: uppercase;
 }
 
-.carta .player-card-bottom .player-info .player-features .player-features-col span .player-feature-value {
-	margin-right: 0.3rem;
+.carta .carta-parte-abajo .estadisticas .atributos .atributos-col span .valor {
+	margin-right: 5px;
 	font-weight: 700;
-	color: black;
 }
 
-.carta .player-card-bottom .player-info .player-features .player-features-col span .player-feature-title {
+.carta .carta-parte-abajo .estadisticas .atributos .atributos-col span .titulo {
 	font-weight: 300;
-	color: black;
 	
 }
 
-.carta .player-card-bottom .player-info .player-features .player-features-col:last-child {
+.carta .carta-parte-abajo .estadisticas .atributos .atributos-col:last-child {
 	border: 0;
 	
 }
@@ -708,61 +614,3 @@ body:after {
     grid-template-columns: auto 200px 100px 120px;
 }
 </style>
-<!--
-<main>
-	
-	{#await nuevoAlumno}
-		Loading alumnos...
-	{:then nuevoAlumno_}
-	
-	<Table bordered>
-		<thead>
-			<tr>
-				<th>Nombre</th>
-				<th>Nombre Carta</th>
-				<th>valoracion</th>
-				<th>posicion</th>
-				<th>pais</th>
-				<th>ritmo</th>
-				<th>tiro</th>
-				<th>pase</th>
-				<th>regate</th>
-				<th>defensa</th>
-				<th>fisico</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td><Input placeholder="Ej. argentina" required bind:value = "{nuevoAlumno.nombre}" /></td>
-				<td><Input required placeholder="Ej. 2020" bind:value = "{nuevoAlumno.nombreCarta}" /></td>
-				<td><Input type="number" required placeholder="0" step="1"  bind:value = "{nuevoAlumno.valoracion}" /></td>
-				<td><Input type="number" required placeholder="0" step="1"  bind:value = "{nuevoAlumno.ritmo}" /></td>
-				<td><Input type="number" required placeholder="0" step="1"  bind:value = "{nuevoAlumno.tiro}" /></td>
-			</tr>
-			<tr>
-				<td>{nuevoAlumno.nombre}</td>
-				<td>{nuevoAlumno.nombreCarta}</td>
-				<td>{nuevoAlumno.valoracion}</td>
-				<td>{nuevoAlumno.posicion}</td>
-				<td>{nuevoAlumno.pais}</td>
-				<td>{nuevoAlumno.ritmo}</td>
-				<td>{nuevoAlumno.tiro}</td>
-				<td>{nuevoAlumno.pase}</td>
-				<td>{nuevoAlumno.regate}</td>
-				<td>{nuevoAlumno.defensa}</td>
-				<td>{nuevoAlumno.fisico}</td>
-			</tr>
-			</tbody>
-	</Table>
-	{/await}
-	<Button outline color="secondary" on:click="{pop}">Atrás</Button>
-</main>
-
-<style>
-	main {
-		text-align: left;
-		padding: 1em;
-		margin: 0 auto;
-	}
-</style>
-  -->

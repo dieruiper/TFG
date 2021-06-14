@@ -7,6 +7,7 @@
     import Input from "sveltestrap/src/Input.svelte";
     let username;
     let password;
+    let email;
     let errorMessage;
     let isActive = false;
     $: if (username) {
@@ -17,6 +18,7 @@
       try {
         const { data } = await axios.post("/api/auth/sign-up", {
           username,
+          email,
           password
         });
         $user = data.user;
@@ -25,7 +27,8 @@
         if (error.response.data.message === "UserExistsError") {
           username = "";
           password = "";
-          errorMessage = "Username is already taken";
+          email = "";
+          errorMessage = "Ya existe ese usuario";
         }
       }
     }
@@ -58,6 +61,9 @@
       <form on:submit|preventDefault={signup}>
         <div class="field">
           <div class="control">
+            {#if errorMessage}
+              <p class="errorsignup">{errorMessage}</p>
+            {/if}
             <input
             placeholder="Usuario"
               type="text"
@@ -65,9 +71,11 @@
               class="input"
               required
               class:is-danger={errorMessage} />
-            {#if errorMessage}
-              <p class="help is-danger">{errorMessage}</p>
-            {/if}
+          </div>
+        </div>
+        <div class="field">
+          <div class="control">
+            <input placeholder="Email" type="email" bind:value={email} class="input" required />
           </div>
         </div>
         <div class="field">
@@ -82,7 +90,7 @@
       <hr />
       <h6>
         ¿Tienes ya una cuenta?
-        <p><a href="#/profesoresAPI/login">Inicia sesión aquí</a></p>
+        <p><a href="#/profesores/login">Inicia sesión aquí</a></p>
       </h6>
       <hr />
       <Button outline color="secondary" on:click="{pop}">Atrás</Button>
@@ -90,6 +98,12 @@
     
   </div>
   <style>
+      .errorsignup{
+    background-color: rgba(247, 128, 128, 0.637);
+    border-radius: 3px;
+    padding-top:10px;
+    padding-bottom:10px;
+  }
     	.barraSup{
 		background-color:#007bff;
 		padding-top: 2vh;

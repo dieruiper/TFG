@@ -9,8 +9,6 @@
 	import Label from "sveltestrap/src/Label.svelte";
 	import Icon from "sveltestrap/src/Icon.svelte";
 	import FormGroup from "sveltestrap/src/FormGroup.svelte";
-	import SummaryCard from "../components/SummaryCard.svelte";
-	import Loading from "../components/Loading.svelte";
 	import {pop} from "svelte-spa-router";
 	import { onMount } from "svelte";
 	import {
@@ -72,10 +70,18 @@ async function getTodo (){
 
 async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
 		console.log("Añadiendo...");
-		if(trimestre1+trimestre2+trimestre3>99){
-            alert("La suma total debe ser menor que 100\nPor favor compruébelo e inserte")
+		let errorRegistro = false
+		for(let i=0;i<$profesores.length;i++){
+			if(nombre === $profesores[i].nombre){
+				errorRegistro=true;
+			}
+		}
+		if(errorRegistro===true){
+            alert("ERROR: Ya existe ese alumno. Por favor revise el nombre")
         }else{
-
+			if(trimestre1+trimestre2+trimestre3>99){
+				alert("La suma total debe ser menor que 100\nPor favor compruébelo e inserte")
+			}else{
 		
 		const response2 = await axios("/api/auth/user");
 		profesor = response2.data.user.username; 
@@ -112,12 +118,13 @@ async function addProfesor(nombre,trimestre1,trimestre2,trimestre3) {
       
 	  nuevoProfesor = {
 		nombre: "",
-			contraseña: Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join(''),
+		contraseña: Array(3).fill("$%-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('')+Array(10).fill("0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join('')+Array(7).fill("$%-.0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz").map(function(x) { return x[Math.floor(Math.random() * x.length)] }).join(''),
 			trimestre1: 0,
 			trimestre2: 0,
 			trimestre3: 0,
 	  }
 	}
+}
 }
 async function removeProfesor(id) {
 		console.log("Borrando...");
@@ -126,23 +133,6 @@ async function removeProfesor(id) {
 			$profesores = $profesores.filter(t => t._id !== id);
 	  	}
 	}
-
-async function viewPassword(nombre)
-{
-  let passwordInput = document.getElementById(nombre);
-
-  let passStatus = document.getElementById(nombre);
-
-  if (passwordInput.type == 'password'){
-    passwordInput.type='text';
-    passStatus.className='fa fa-eye-slash';
-    
-  }
-  else{
-    passwordInput.type='password';
-    passStatus.className='fa fa-eye';
-  }
-}
 
 async function Buscar(nombre){
 	const {data} = await axios("/api/profesores");
@@ -361,7 +351,7 @@ async function logout() {
 					<Button  color="dark" outline size="sm"  on:click={ordenarNumerosAsc2}>▲</Button></th>
 				<th>Trimestre 3 <Button  color="dark" outline size="sm" on:click={ordenarNumerosDesc3}>▼</Button>
 					<Button  color="dark" outline size="sm"  on:click={ordenarNumerosAsc3} >▲</Button></th>
-				<th><Button href="#/profesoresAPI/actualizar" color="primary">Modificar Datos</Button></th>
+				<th><Button href="#/profesores/actualizar" color="primary">Modificar Datos</Button></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -376,12 +366,11 @@ async function logout() {
 			<tr>
 				<td><Hoverable let:hovering={active}>
 						{#if active}
-							<p>{password}</p>
+							<p>{profesores.contraseña.substring(3,13)}</p>
 						{:else}
 							<p>{profesores.nombre}</p>
 						{/if}
 				</Hoverable></td>
-				<!--<td><input readonly bind:value = "{profesores.contraseña}" type="password" id="{profesores.nombre}" /><Button type="button" class="fa fa-eye" on:click="{viewPassword(profesores.nombre)}" ></Button></td>-->
 				<td>{profesores.trimestre1}</td>
 				<td>{profesores.trimestre2}</td>
 				<td>{profesores.trimestre3}</td>
