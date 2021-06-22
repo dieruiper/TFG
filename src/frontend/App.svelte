@@ -1,5 +1,5 @@
 <script>
-	import Router from 'svelte-spa-router';
+	import Router, { wrap, push } from 'svelte-spa-router';
 	import Home from './Home.svelte';
 	import profesores from './profesoresAPI/App.svelte';
 	import profesoresAut from "./profesoresAPI/Dashboard.svelte";
@@ -18,7 +18,15 @@
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
 	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
 	import ActualizarProf from './profesoresAPI/ActualizarDatos.svelte';
-	
+	import { user } from "./stores";
+	import { onMount } from "svelte";
+	import axios from "axios";
+
+	onMount(async () => {
+    const { data } = await axios.get("api/auth/user");
+    $user = data.user;
+  });
+
 	const routes =  {
 
 		"/": Home,
@@ -27,7 +35,7 @@
 		"/profesores/ranking/": Ranking,
 		"/alumnos/:nombre/cartaFifa": alumnosFifa,
 		"/alumnos/:nombre/cartaSuperheroe": alumnosSuperheroe,
-		"/profesores": profesores,
+		"/profesores":profesores,
 		"/profesores": profesoresAut,
 		"/alumnos": alumnos,
 		//"/alumnos": alumnosAut,
@@ -35,7 +43,7 @@
 		"/profesores/login": Login,
 		"/alumnos/signup": SignUpAlum,
 		"/alumnos/login": LoginAlum,
-		"/profesores/perfil": PerfilProf,
+		"/profesores/perfil":PerfilProf,
 		"/profileAlum": ProlifeAlum,
 		"/profesores/actualizar": ActualizarProf,
 		"*": NotFound

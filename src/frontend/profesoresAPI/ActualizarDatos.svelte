@@ -11,10 +11,6 @@
 	import Input from "sveltestrap/src/Input.svelte";
     import {
 	  profesores,
-	  sortedProfesores,
-	  income,
-	  expenses,
-	  balance,
       user
 	} from "../stores";
     import {

@@ -13,7 +13,6 @@
 	let isActive;
 	let input = 0;
 	let usuario;
-	let bandera = "";
 
 	let nuevoAlumno = {
 			nombre: "",
@@ -33,28 +32,10 @@
 			imagen: ""
 		};
 
+		let bandera = "";
+		
 onMount(getAlumno);
-/*
-async function getTodo (){
-	console.log("Obteniendo...");
-	const {data} = await axios("/api/profesores");
-	$profesores = data;
-}
 
-async function addProfesor() {
-		console.log("Añadiendo...");
-		const response = await axios.post("/api/profesores", nuevoProfesor);
-		$profesores = [response.data, ...$profesores];
-		input = 0;
-	}
-async function removeProfesor(id) {
-		console.log("Borrando...");
-	  	const response = await axios.delete("/api/profesores/" + id);
-	  	if (response.data.id === id) {
-			$profesores = $profesores.filter(t => t._id !== id);
-	  	}
-	}
-*/
 async function logout() {
     await axios.post("/api/auth/logout");
     $userAlum = null;
@@ -66,16 +47,14 @@ async function getAlumno (){
 	
 	usuario = nuevoAlumno.nombre
 	bandera = findFlagUrlByCountryName(nuevoAlumno.pais);
-	console.log(bandera)
-	
-	 console.log(nuevoAlumno.squad)
-	 console.log(nuevoAlumno.imagen)
 }
-	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico) {
+var imgPath = '/path/to/some/img.png';
+	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,imagen) {
+		console.log("Actualizado..."+nombre);
+		console.log("Actualizado..."+imagen);
 		if (valoracion <= ((ritmo+tiro+pase+regate+defensa+fisico)/6)){
 			alert("ERROR: La media aritmética de tus atributos no puede ser mayor a tu valoración");
 		}else{
-        console.log("Actualizado..."+nombre);
         const res = await axios({
             method: "PUT",
             url:"/api/alumnos/"+nombre,
@@ -95,7 +74,7 @@ async function getAlumno (){
 				nombre: nombre,
                 fisico: fisico,
 				profesor: nuevoAlumno.profesor,
-				imagen: nuevoAlumno.imagen
+				imagen: imagen
             },
             headers: {
                 "Content-Type": "application/json"
@@ -103,7 +82,7 @@ async function getAlumno (){
         })
 		getAlumno()
 		alert("Guardado con éxito")
-    }  
+    	}  
 	}
 	let  avatar, fileinput;
 	
@@ -112,10 +91,10 @@ async function getAlumno (){
             let reader = new FileReader();
             reader.readAsDataURL(image);
             reader.onload = e => {
-                 avatar = e.target.result
+                 avatar = e.target.result;
+				 nuevoAlumno.imagen = avatar;
             };
-			nuevoAlumno.imagen = avatar;
-			console.log(nuevoAlumno.imagen)
+			
 }
 </script>
 <nav class="barraSup">
@@ -135,7 +114,7 @@ async function getAlumno (){
 	  </div>
 	  <Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
 	  <input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico)}>Guardar</Button>
+	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
 	  
 		<Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
 	</div>
@@ -172,18 +151,17 @@ async function getAlumno (){
 		<tr>
 			<th>Squad</th>
 			<td><Input type="select" name="squad" id="squad" bind:value ={nuevoAlumno.squad}>
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466103.png?token=exp=1623057057~hmac=411a7d63ce44df92cce8de3642af3f7b">Catwoman</option>
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466137.png?token=exp=1623057070~hmac=7bc7bebd14822e4a7a687cdcba0cacc8">Superwoman</option>
-				<option value="https://img-premium.flaticon.com/png/512/1388/1388513.png?token=exp=1623057150~hmac=e8e3e24135573bf1ac0a7164dac7fafa">Superheroína</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466103.png">Catwoman</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466137.png">Superwoman</option>
+				<option value="https://image.flaticon.com/icons/png/512/4061/4061247.png">Superheroína</option>
 				<option value="https://image.flaticon.com/icons/png/512/1466/1466117.png">Hulk</option>
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466114.png?token=exp=1623057007~hmac=f3eb2b926191724ec34f394ca4eab863">Flash</option>
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466111.png?token=exp=1623057009~hmac=6cf0bba8a5b3177c922828488ab41452">Deadpool</option>
-				<option value="https://img-premium.flaticon.com/png/512/1674/1674294.png?token=exp=1623058104~hmac=36fc649d92e97644872d071f8f6a38df">Spiderman</option>
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466118.png?token=exp=1623057015~hmac=2fec8dd58e383c0cb235aa5aef658d49">Iron Man</option>
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466102.png?token=exp=1623057055~hmac=0887d22f76eb32e0a2e8bbbc99ab4092">Batman</option>
-				
-				<option value="https://img-premium.flaticon.com/png/512/1466/1466106.png?token=exp=1623057101~hmac=0b3824ff77238e4c09edd4543911ca7e">Capitán América</option>
-				<option value="https://img-premium.flaticon.com/png/512/1352/1352423.png?token=exp=1623057132~hmac=f1cf71ca935b5cf401a8f7c3b6db5f46">Superman</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466114.png">Flash</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466111.png">Deadpool</option>
+				<option value="https://image.flaticon.com/icons/png/512/1674/1674294.png">Spiderman</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466118.png">Iron Man</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466102.png">Batman</option>
+				<option value="https://image.flaticon.com/icons/png/512/1466/1466106.png">Capitán América</option>
+				<option value="https://image.flaticon.com/icons/png/512/1352/1352423.png">Superman</option>
 			</Input></td>
 		</tr>
 </Table>
@@ -211,8 +189,8 @@ async function getAlumno (){
 			</div>
 		</div>
 		<div class="carta-imagen">
-			{#if avatar}
-			<img class="avatar2" src="{avatar}" alt="d" />
+			{#if avatar != null || avatar != ""}
+			<img class="avatar2" src="{nuevoAlumno.imagen}" alt="d" />
 			{:else}
 			<img class="avatar" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="" /> 
 			{/if}

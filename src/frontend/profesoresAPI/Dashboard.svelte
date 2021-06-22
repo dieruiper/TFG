@@ -3,6 +3,7 @@
 	import Hoverable from '../MostrarContraseñas/Hoverable.svelte';
 	import Modal from '../BarraLateral/Modal.svelte';
 	import axios from "axios";
+	import { push } from "svelte-spa-router";
 	import Table from "sveltestrap/src/Table.svelte";
 	import Button from "sveltestrap/src/Button.svelte";
 	import Input from "sveltestrap/src/Input.svelte";
@@ -13,17 +14,13 @@
 	import { onMount } from "svelte";
 	import {
 	  profesores,
-	  sortedProfesores,
-	  income,
-	  expenses,
-	  balance
+	  user
 	} from "../stores";
 	let visible = false;
 	let nombre;
     let errorMessage;
 	let usuario;
 	import { userAlum } from "../storesAlum";
-	import { user} from "../stores";
 	let input = 0;
 	let profesor ;
 	let password;
@@ -64,6 +61,10 @@ async function getTodo (){
 	console.log("Obteniendo...");
 	const {data} = await axios("/api/profesores");
 	const response2 = await axios("/api/auth/user");
+	if(response2.data.user === null ){
+		push("/profesores/login")
+		alert("Por favor inicia sesión")
+	}
 	usuario = response2.data.user.username;
 	$profesores = data;
 }

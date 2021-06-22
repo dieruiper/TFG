@@ -35,15 +35,18 @@
 			
 			<h1><p><Button color="primary" href="#/profesores/login"> ACCESO PARA PROFESORES </Button></p></h1>
 			<a href="#/profesores/login"><img src="images/profesores.jpg" alt="profesores"  /></a>
-			<p class="fuente_pequeña"><a  href='https://www.freepik.es/vectores/personas'>Vector de Personas creado por freepik - www.freepik.es</a></p>
+			<p class="fuente_pequeña"></p>
 		
 		</div>
 		<div class="alumnos">
 		
 			<h1><p><Button size="x-large" color="primary" href="#/alumnos/login">ACCESO PARA ALUMNOS </Button></p></h1>
 			<a href="#/alumnos/login"><img src="images/alumnos.jpg" alt="alumnos" /></a>
-			<p class="fuente_pequeña"><a href='https://www.freepik.es/vectores/fondo'> Vector de Fondo creado por iconicbestiary - www.freepik.es</a></p>
+			<p class="fuente_pequeña"></p>
 		
+		</div>
+		<div class="atribuido">
+			<p class="fuente_pequeña"><a  href='https://www.freepik.es/vectores/personas'>Vector de Personas creado por freepik - www.freepik.es</a></p>
 		</div>
 	</div>
 	</body>
@@ -60,7 +63,7 @@
 		display: grid;
 		height: 100vh;
 		width: 100vw;
-		grid-template-rows: 15vh auto;
+		grid-template-rows: 15vh auto 10vh;
 		grid-template-columns: auto auto;
 	}
 	.barra{
@@ -78,6 +81,11 @@
 		color: white;
 		border-radius: 10px;
 	}
+	.atribuido{
+		grid-column-start:1;
+		grid-column-end: 3;
+		text-align: center;
+	}
 
 	.profesores{
 		display:flex;
@@ -92,7 +100,7 @@
 		justify-content: center;
 	}
 	.fuente_pequeña{
-		font-size:xx-small;
+		font-size:x-small;
 		
 	}
 	img {

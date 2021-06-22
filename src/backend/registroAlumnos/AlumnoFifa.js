@@ -44,8 +44,7 @@ const SchemaAlumnoFifa = new Schema({
         type: String,
     },
     imagen:
-     { data: Buffer,
-     contentType: String }
+     { type: String}
         
 })
 

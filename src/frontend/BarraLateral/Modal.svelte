@@ -3,7 +3,7 @@
   <div class="modal-overlay" data-close on:click={overlay_click} transition:fade={{duration: 150}}>
     <div class="modal-container">
       <main>
-        <h2>INFORMACIÓN SOBRE CONTRASEÑAS</h2>
+        <h2> ⚠️ INFORMACIÓN SOBRE CONTRASEÑAS</h2>
         <ul>
         <p></p>
         <li>La contraseña se generará aleatoriamente al insertar un nuevo alumno</li>
@@ -42,10 +42,15 @@ export let show = false;
 }
 .modal-container {
   position: relative;
-  background-color: #ffffff;
-  width: 30vw;
+  background-color: #e7f9ff;
+  width: 40vw;
+  border-radius: 10px;
+  padding: 20px;
   margin: 1rem auto 0.2rem;
   box-shadow: 0 3px 10px #555;
+}
+.modal-container h2 {
+  text-align: center;
 }
 main {
   padding: 0.5rem;

@@ -15,7 +15,6 @@
 	let isActive;
 	let usuario;
 	let input = 0;
-	let total = 0;
 	
 	let nuevoAlumno = {
 			nombre: "",
@@ -36,47 +35,14 @@
 		};
 		let bandera = "";
 onMount(getAlumno);
-/*
-async function getTodo (){
-	console.log("Obteniendo...");
-	const {data} = await axios("/api/profesores");
-	$profesores = data;
-}
-
-async function addProfesor() {
-		console.log("Añadiendo...");
-		const response = await axios.post("/api/profesores", nuevoProfesor);
-		$profesores = [response.data, ...$profesores];
-		input = 0;
-	}
-async function removeProfesor(id) {
-		console.log("Borrando...");
-	  	const response = await axios.delete("/api/profesores/" + id);
-	  	if (response.data.id === id) {
-			$profesores = $profesores.filter(t => t._id !== id);
-	  	}
-	}
-*/
 
 
 async function getAlumno (){
 	const {data} = await axios.get("/api/alumnos/"+params.nombre);
 	nuevoAlumno = data[0];
-	console.log(nuevoAlumno)
-	//const response = await axios("/api/profesores");
-	/*
-	for(let i=0;i<response.data.length;i++){
-		if (response.data[i].profesor === nuevoAlumno.profesor && nuevoAlumno.nombre === response.data[i].nombre){
-			total = response.data[i].trimestre1 + response.data[i].trimestre2 +response.data[i].trimestre3;
-			console.log(total);
-		}
-	}*/
+	
 	usuario = nuevoAlumno.nombre
 	 bandera = findFlagUrlByCountryName(nuevoAlumno.pais);
-	console.log(bandera)
-	
-	 console.log(nuevoAlumno.equipo)
-	 console.log(nuevoAlumno.imagen)
 }
 
 async function logout() {
@@ -87,18 +53,10 @@ async function logout() {
   var imgPath = '/path/to/some/img.png';
 	async function guardar(nombre,nombreCarta,valoracion,posicion,pais,equipo,squad,ritmo,tiro,pase,regate,defensa,fisico,imagen) {
         console.log("Actualizado..."+nombre);
+		console.log("Actualizado..."+imagen);
 		if (valoracion < ((ritmo+tiro+pase+regate+defensa+fisico)/6)){
 			alert("ERROR: La media aritmética de tus atributos no puede ser mayor a tu valoración");
 		}else{
-
-		
-		/*
-        nuevoAlumno.imagen.data = fs.readFileSync(imgPath);
-		nuevoAlumno.imagen.contentType = 'image/png';
-		nuevoAlumno.save(function (err, nuevoAlumno) {
-
-      	console.error('saved img to mongo');
-		})*/
 		const res = await axios({
             method: "PUT",
             url:"/api/alumnos/"+nombre,
@@ -118,7 +76,7 @@ async function logout() {
 				nombre: nombre,
                 fisico: fisico,
 				profesor: nuevoAlumno.profesor,
-				imagen: nuevoAlumno.imagen
+				imagen: imagen
             },
             headers: {
                 "Content-Type": "application/json"
@@ -135,10 +93,10 @@ async function logout() {
             let reader = new FileReader();
             reader.readAsDataURL(image);
             reader.onload = e => {
-                 avatar = e.target.result
+                 avatar = e.target.result;
+				 nuevoAlumno.imagen = avatar;
             };
-			nuevoAlumno.imagen = avatar;
-			console.log(nuevoAlumno.imagen)
+			
 }
 	
 </script>
@@ -159,11 +117,6 @@ async function logout() {
 	  </div>
 		<Button class="upload" color="light" on:click={()=>{fileinput.click();}}> Elegir imagen</Button>
 		<input style="display:none" type="file" accept=".jpg, .jpeg, .png" bind:value={nuevoAlumno.imagen} on:change={(e)=>onFileSelected(e)} bind:this={fileinput} >
-	  <!--{#if nuevoAlumno.valoracion>=((nuevoAlumno.ritmo+nuevoAlumno.tiro+nuevoAlumno.pase+nuevoAlumno.regate+nuevoAlumno.defensa+nuevoAlumno.fisico)/6)}
-	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
-	  {:else}
-	  <Button  color="danger" >No puedes guardar</Button>
-	  {/if}-->
 	  <Button  color="success" on:click={() => guardar(nuevoAlumno.nombre,nuevoAlumno.nombreCarta,nuevoAlumno.valoracion,nuevoAlumno.posicion,nuevoAlumno.pais,nuevoAlumno.equipo,nuevoAlumno.squad,nuevoAlumno.ritmo,nuevoAlumno.tiro,nuevoAlumno.pase,nuevoAlumno.regate,nuevoAlumno.defensa,nuevoAlumno.fisico,nuevoAlumno.imagen)}>Guardar</Button>
 	  <Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
 	</div>
@@ -306,8 +259,8 @@ async function logout() {
 			
 		</div>
 		<div class="carta-imagen">
-			{#if avatar}
-			<img class="avatar" src="{avatar}" alt="d" />
+			{#if avatar != null || avatar != ""}
+			<img class="avatar" src="{nuevoAlumno.imagen}" alt="d" />
 			{:else}
 			<img class="avatar" src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png" alt="" /> 
 			{/if}
