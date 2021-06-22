@@ -26,6 +26,7 @@
             let total = data[i].trimestre1 + data[i].trimestre2 +data[i].trimestre3;
             array.push({nombre: data[i].nombre,total: total})
         }
+        /*ordenar ranking*/
         function compare(a, b) {
         const bandA = a.total;
         const bandB = b.total;
@@ -43,16 +44,7 @@
         
         console.log( $ranking)
 
-        /*
-	const response = await axios("/api/profesores");
-	for(let i=0;i<response.data.length;i++){
-		if (response.data[i].profesor === nuevoAlumno.profesor && nuevoAlumno.nombre === response.data[i].nombre){
-			total = response.data[i].trimestre1 + response.data[i].trimestre2 +response.data[i].trimestre3;
-			console.log(total);
-		}
-	}*/
     }
-    let isActive = false;
     async function logout() {
     await axios.post("/api/auth/logout");
     $user = null;
@@ -71,11 +63,7 @@
           <div class="navbar-brand">
             <span class="title">Top 5 mejores alumnos</span>
           <span
-            class="navbar-burger burger"
-            class:is-active={isActive}
-            on:click={() => (isActive = !isActive)}
-            aria-expanded="false"
-            aria-label="menu">
+            class="navbar-burger burger">
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />
@@ -84,7 +72,7 @@
             <Button  color="light" on:click="{pop}">Atrás</Button><Button href="/" color= "danger" on:click={logout}>Cerrar sesión</Button>
         </div>
         </nav>
-        <div class="leaderboard">
+        <div class="ranking">
             <h1>
               <svg class="ico-cup">
                 <use xlink:href="#cup"></use>
@@ -142,11 +130,7 @@
 		color:white;
 	}
 
-
-/*--------------------
-Leaderboard
---------------------*/
-.leaderboard {
+.ranking {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -158,12 +142,12 @@ Leaderboard
   box-shadow: 0 7px 30px rgba(62, 9, 11, 0.3);
   padding-right: 40px;
 }
-.leaderboard h1 {
+.ranking h1 {
   font-size: 18px;
   color: #e1e1e1;
   padding: 12px 13px 18px;
 }
-.leaderboard h1 svg {
+.ranking h1 svg {
   width: 25px;
   height: 26px;
   position: relative;
@@ -171,22 +155,22 @@ Leaderboard
   margin-right: 6px;
   vertical-align: baseline;
 }
-.leaderboard ol {
-  counter-reset: leaderboard;
+.ranking ol {
+  counter-reset: ranking;
 }
-.leaderboard ol li {
+.ranking ol li {
   position: relative;
   z-index: 1;
   font-size: 14px;
-  counter-increment: leaderboard;
+  counter-increment: ranking;
   padding: 18px 10px 18px 50px;
   cursor: pointer;
   -webkit-backface-visibility: hidden;
           backface-visibility: hidden;
   transform: translateZ(0) scale(1, 1);
 }
-.leaderboard ol li::before {
-  content: counter(leaderboard);
+.ranking ol li::before {
+  content: counter(ranking);
   position: absolute;
   z-index: 2;
   top: 15px;
@@ -199,7 +183,7 @@ Leaderboard
   border-radius: 20px;
   text-align: center;
 }
-.leaderboard ol li mark {
+.ranking ol li mark {
   position: absolute;
   z-index: 2;
   top: 0;
@@ -211,7 +195,7 @@ Leaderboard
   background: none;
   color: #fff;
 }
-.leaderboard ol li mark::before, .leaderboard ol li mark::after {
+.ranking ol li mark::before, .ranking ol li mark::after {
   content: "";
   position: absolute;
   z-index: 1;
@@ -222,20 +206,20 @@ Leaderboard
   transition: all 0.1s ease-in-out;
   opacity: 0;
 }
-.leaderboard ol li mark::after {
+.ranking ol li mark::after {
   left: auto;
   right: -9px;
   border-left: none;
   border-right: 10px solid transparent;
 }
-.leaderboard ol li small {
+.ranking ol li small {
   position: relative;
   z-index: 2;
   display: block;
   text-align: right;
   color:white;
 }
-.leaderboard ol li::after {
+.ranking ol li::after {
   content: "";
   position: absolute;
   z-index: 1;
@@ -248,71 +232,71 @@ Leaderboard
   transition: all 0.3s ease-in-out;
   opacity: 0;
 }
-.leaderboard ol li:nth-child(1) {
+.ranking ol li:nth-child(1) {
   background: #8bc3ff;
 }
-.leaderboard ol li:nth-child(1)::after {
+.ranking ol li:nth-child(1)::after {
   background: #8bc3ff;
 }
-.leaderboard ol li:nth-child(2) {
+.ranking ol li:nth-child(2) {
   background: #65b0ff;
 }
-.leaderboard ol li:nth-child(2)::after {
+.ranking ol li:nth-child(2)::after {
   background: #65b0ff;
   box-shadow: 0 2px 0 rgba(0, 0, 0, 0.08);
 }
-.leaderboard ol li:nth-child(2) mark::before, .leaderboard ol li:nth-child(2) mark::after {
+.ranking ol li:nth-child(2) mark::before, .ranking ol li:nth-child(2) mark::after {
   border-top: 6px solid #65b0ff;
   bottom: -7px;
 }
-.leaderboard ol li:nth-child(3) {
+.ranking ol li:nth-child(3) {
   background: #429eff;
 }
-.leaderboard ol li:nth-child(3)::after {
+.ranking ol li:nth-child(3)::after {
   background: #429eff;
   box-shadow: 0 1px 0 rgba(0, 0, 0, 0.11);
 }
-.leaderboard ol li:nth-child(3) mark::before, .leaderboard ol li:nth-child(3) mark::after {
+.ranking ol li:nth-child(3) mark::before, .ranking ol li:nth-child(3) mark::after {
   border-top: 2px solid #429eff;
   bottom: -3px;
 }
-.leaderboard ol li:nth-child(4) {
+.ranking ol li:nth-child(4) {
   background: #007bff;
 }
-.leaderboard ol li:nth-child(4)::after {
+.ranking ol li:nth-child(4)::after {
   background: #007bff;
   box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15);
 }
-.leaderboard ol li:nth-child(4) mark::before, .leaderboard ol li:nth-child(4) mark::after {
+.ranking ol li:nth-child(4) mark::before, .ranking ol li:nth-child(4) mark::after {
   top: -7px;
   bottom: auto;
   border-top: none;
   border-bottom: 6px solid #007bff;
 }
-.leaderboard ol li:nth-child(5) {
+.ranking ol li:nth-child(5) {
   background: #026ee2;
   border-radius: 0 0 10px 10px;
 }
-.leaderboard ol li:nth-child(5)::after {
+.ranking ol li:nth-child(5)::after {
   background: #026ee2;
   box-shadow: 0 -2.5px 0 rgba(0, 0, 0, 0.12);
   border-radius: 0 0 10px 10px;
 }
-.leaderboard ol li:nth-child(5) mark::before, .leaderboard ol li:nth-child(5) mark::after {
+.ranking ol li:nth-child(5) mark::before, .ranking ol li:nth-child(5) mark::after {
   top: -9px;
   bottom: auto;
   border-top: none;
   border-bottom: 8px solid #026ee2;
 }
-.leaderboard ol li:hover {
+.ranking ol li:hover {
   z-index: 2;
   overflow: visible;
 }
-.leaderboard ol li:hover::after {
+.ranking ol li:hover::after {
   opacity: 1;
   transform: scaleX(1.06) scaleY(1.03);
 }
-.leaderboard ol li:hover mark::before, .leaderboard ol li:hover mark::after {
+.ranking ol li:hover mark::before, .ranking ol li:hover mark::after {
   opacity: 1;
   transition: all 0.35s ease-in-out;
 }

@@ -23,7 +23,7 @@ router.post(
             if (error.name === 'UserExistsError') {
                 return res.status(400).json({ message: 'UserExistsError' })
             }
-            return res.status(500).json({ message: 'There was an error when signing up the user' })
+            return res.status(500).json({ message: 'Hubo un error registrando el usuario' })
         }
         next()
     },
@@ -36,9 +36,9 @@ router.post(
 router.post('/logout', (req, res) => {
     if (req.user) {
         req.logOut()
-        res.json({ message: 'Logged out' })
+        res.json({ message: 'Sesion cerrada' })
     } else {
-        res.json({ message: 'No user to log out' })
+        res.json({ message: 'No hay ninguna sesion abierta' })
     }
 })
 
@@ -50,24 +50,24 @@ router.post(
     '/update-password',
     (req, res, next) => {
         if (!req.user) {
-            return res.send({ message: 'No user to change password' })
+            return res.send({ message: 'No existe el usuario para cambiar contraseña' })
         }
         next()
     },
     async (req, res) => {
         const { oldPassword, newPassword } = req.body
         if (!oldPassword || !newPassword) {
-            return res.status(400).json({ message: 'Invalid Request' })
+            return res.status(400).json({ message: 'Peticion no valida' })
         }
         try {
             const user = await User.findById(req.user._id)
             await user.changePassword(oldPassword, newPassword)
-            res.json({ message: 'success' })
+            res.json({ message: 'Contraseña cambiada' })
         } catch (error) {
             if (error.name === 'IncorrectPasswordError') {
                 return res.status(400).json({ message: 'IncorrectPasswordError' })
             }
-            return res.status(500).json({ message: 'There was an error' })
+            return res.status(500).json({ message: 'Ha habido un error' })
         }
     }
 )

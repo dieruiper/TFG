@@ -8,31 +8,29 @@ router.get('/', middleware, async(req, res) => {
 })
 
 router.post('/sign-up', async (req, res) => {
-   // Create a new user
    try {
       const userAlum = new UserAlum(req.body)
       await userAlum.save()
       const token = await userAlum.generateAuthToken()
       res.status(201).send({ userAlum,token})
    } catch (error) {
-      console.log("errorSignUp")
+      console.log("error Registro")
       res.status(400).send(error)
       
    }
 })
 
 router.post('/login', async(req, res) => {
-   //Login a registered user
    try {
       const { nombre, password, profesor} = req.body
       const userAlum = await UserAlum.findByCredentials(nombre, password, profesor)
       if (!userAlum) {
-         return res.status(401).send({error: 'Login failed! Check authentication credentials'})
+         return res.status(401).send({error: 'Inicio sesión fallido. Comprueba tus credenciales'})
       }
       const token = await userAlum.generateAuthToken()
       res.send({ userAlum, token })
    } catch (error) {
-      console.log("errorLogin")
+      console.log("error Inicio Sesion")
       res.status(400).send(error)
       
    }
@@ -40,7 +38,6 @@ router.post('/login', async(req, res) => {
 })
 
 router.post('/logout', middleware, async (req, res) => {
-   // Log user out of the application
    try {
       req.userAlum.tokens = req.userAlum.tokens.filter((token) => {
       return token.token != req.token

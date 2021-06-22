@@ -9,10 +9,6 @@
     let password;
     let email;
     let errorMessage;
-    let isActive = false;
-    $: if (username) {
-      errorMessage = null;
-    }
   
     async function signup() {
       try {
@@ -41,10 +37,7 @@
       </a>
       <span
         class="navbar-burger burger"
-        class:is-active={isActive}
-        on:click={() => (isActive = !isActive)}
-        aria-expanded="false"
-        aria-label="menu">
+>
         <span aria-hidden="true" />
         <span aria-hidden="true" />
         <span aria-hidden="true" />

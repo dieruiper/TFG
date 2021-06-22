@@ -1,9 +1,9 @@
 <script>
 	import Button from "sveltestrap/src/Button.svelte";
-	let isActive = false;
 </script>
 <main>
 	<body>
+		<!--Barra superior-->
 		<nav class="barraSup">
 			<div class="container">
 			  <div class="navbar-brand">
@@ -11,11 +11,7 @@
 				  <span class="title"></span>
 				</a>
 				<span
-				  class="navbar-burger burger"
-				  class:is-active={isActive}
-				  on:click={() => (isActive = !isActive)}
-				  aria-expanded="false"
-				  aria-label="menu">
+				  class="navbar-burger burger">
 				  <span aria-hidden="true" />
 				  <span aria-hidden="true" />
 				  <span aria-hidden="true" />
@@ -24,8 +20,8 @@
 			  
 			</div>
 		  </nav>
+		<!--Principal-->
 		<div class="menu">
-			
 			<div class="barra">
 				
 				<h1>BIENVENIDO</h1>

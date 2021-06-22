@@ -97,7 +97,6 @@ async function Upload() {
   alert("Importado con éxito");
 } 
 
-let isActive = false;
     async function logout() {
     await axios.post("/api/auth/logout");
     $user = null;
@@ -115,11 +114,7 @@ let isActive = false;
           <div class="navbar-brand">
             <span class="title">Importar alumnos</span>
           <span
-            class="navbar-burger burger"
-            class:is-active={isActive}
-            on:click={() => (isActive = !isActive)}
-            aria-expanded="false"
-            aria-label="menu">
+            class="navbar-burger burger">
             <span aria-hidden="true" />
             <span aria-hidden="true" />
             <span aria-hidden="true" />

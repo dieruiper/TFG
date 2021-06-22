@@ -10,7 +10,6 @@
 	import { userAlum } from "../storesAlum";
 	import { findFlagUrlByCountryName } from "country-flags-svg";
 	export let params = {};
-	let isActive;
 	let input = 0;
 	let usuario;
 
@@ -102,11 +101,7 @@ var imgPath = '/path/to/some/img.png';
 	  <div class="navbar-brand">
 		  <span class="title">¡Bienvenido {usuario}!</span>
 		<span
-		  class="navbar-burger burger"
-		  class:is-active={isActive}
-		  on:click={() => (isActive = !isActive)}
-		  aria-expanded="false"
-		  aria-label="menu">
+		  class="navbar-burger burger" >
 		  <span aria-hidden="true" />
 		  <span aria-hidden="true" />
 		  <span aria-hidden="true" />

@@ -28,7 +28,6 @@ const userAlumSchema = mongoose.Schema({
  })
  
  userAlumSchema.pre('save', async function (next) {
-    // Hash the password before saving the user model
     const userAlum = this
     if (userAlum.isModified('password')) {
         userAlum.password = await bcrypt.hash(userAlum.password, 8)
@@ -37,7 +36,6 @@ const userAlumSchema = mongoose.Schema({
  })
  
  userAlumSchema.methods.generateAuthToken = async function() {
-    // Generate an auth token for the user
     const userAlum = this
     const token = jwt.sign({_id: userAlum._id}, process.env.JWT_KEY)
     userAlum.tokens = userAlum.tokens.concat({token})
@@ -46,14 +44,13 @@ const userAlumSchema = mongoose.Schema({
  }
  
  userAlumSchema.statics.findByCredentials = async (nombre, password, profesor) => {
-    // Search for a user by name and teacher.
     const userAlum = await UserAlum.findOne({nombre, profesor} )
     if (!userAlum) {
-       throw new Error({ error: 'Invalid login credentials' })
+       throw new Error({ error: 'Inicio de sesión fallido' })
     }
     const isPasswordMatch = await bcrypt.compare(password, userAlum.password)
     if (!isPasswordMatch) {
-       throw new Error({ error: 'Invalid login credentials' })
+       throw new Error({ error: 'Inicio de sesión fallido' })
     }
     return userAlum
  }

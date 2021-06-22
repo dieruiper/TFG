@@ -8,10 +8,6 @@
   let username;
   let password;
   let errorMessage;
-  let isActive = false;
-  $: if (username || password) {
-    errorMessage = null;
-  }
 
   async function login() {
     try {
@@ -37,11 +33,7 @@
 				  <span class="title">🏠︎</span>
 				</a>
 				<span
-				  class="navbar-burger burger"
-				  class:is-active={isActive}
-				  on:click={() => (isActive = !isActive)}
-				  aria-expanded="false"
-				  aria-label="menu">
+				  class="navbar-burger burger">
 				  <span aria-hidden="true" />
 				  <span aria-hidden="true" />
 				  <span aria-hidden="true" />

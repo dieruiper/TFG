@@ -1,3 +1,4 @@
+/*modulos usados*/
 const express = require("express");
 const bodyParser = require('body-parser')
 const path = require("path");
@@ -7,18 +8,21 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const app = express();
 
+/* Rutas */
 const usuarioAlum = require(path.join(__dirname,'./src/backend/registroAlumnos/AutenticacionAlum.js'));
 const RutasAlumnos = require(path.join(__dirname,'./src/backend/registroAlumnos/alumnosFifa.js'));
 const RutasProfesores = require(path.join(__dirname,'./src/backend/registroProfesores/profesores.js'));
 const usuarioProf = require(path.join(__dirname,'./src/backend/registroProfesores/Usuario.js'));
 const autenticacion = require(path.join(__dirname,'./src/backend/registroProfesores/Autenticacion.js'));
 
+/*Variables de entorno*/
 const port = process.env.PORT || 5000;
 const mongoURI = process.env.MONGO_URI;
 const jwt = process.env.JWT_KEY;
 
 app.use(bodyParser.json())
 
+/* conectar MongoDB y session */
 mongoose
     .connect(mongoURI, {
         useNewUrlParser: true,
@@ -37,6 +41,7 @@ app.use(
     })
 )
 
+/* Activar local-passport*/
 passport.use(usuarioProf.createStrategy())
 passport.serializeUser(usuarioProf.serializeUser())
 passport.deserializeUser(usuarioProf.deserializeUser())
@@ -50,8 +55,9 @@ app.use('/api/profesores', RutasProfesores);
 app.use('/api/alumnos', RutasAlumnos);
 app.use('/api/authAlum', usuarioAlum);
 
+/* Esperar Servidor*/
 app.listen(port, () => {
-	console.log("Server ready");
+	console.log("Servidor preparado");
 });
 
-console.log("Starting server...");
+console.log("Preparando servidor...");

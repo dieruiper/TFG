@@ -16,7 +16,6 @@
 	import PerfilProf from "./profesoresAPI/Perfil.svelte";
 	import Ranking from "./profesoresAPI/Ranking.svelte";
 	import ProlifeAlum from "./alumnosAPI/Profile.svelte";
-	//import Dashboard from "./profesoresAPI/Dashboard.svelte";
 	import ActualizarProf from './profesoresAPI/ActualizarDatos.svelte';
 	import { user } from "./stores";
 	import { onMount } from "svelte";
@@ -38,7 +37,6 @@
 		"/profesores":profesores,
 		"/profesores": profesoresAut,
 		"/alumnos": alumnos,
-		//"/alumnos": alumnosAut,
 		"/profesores/signup": SignUp,
 		"/profesores/login": Login,
 		"/alumnos/signup": SignUpAlum,

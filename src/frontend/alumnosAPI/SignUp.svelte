@@ -7,10 +7,6 @@
     let profesor;
     let errorMessage;
   
-    $: if (nombre) {
-      errorMessage = null;
-    }
-  
     async function signup() {
       try {
         const { data } = await axios.post("/api/authAlum/sign-up", {

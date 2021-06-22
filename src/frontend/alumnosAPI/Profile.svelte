@@ -8,10 +8,6 @@
   let errorMessage;
   let successMessage;
 
-  $: if (oldPassword) {
-    errorMessage = null;
-  }
-
   async function changePassword() {
     try {
       await axios.post("/api/auth/update-password", {

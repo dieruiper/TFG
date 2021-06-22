@@ -11,9 +11,6 @@
   let errorMessage;
   let successMessage;
 
-  $: if (oldPassword) {
-    errorMessage = null;
-  }
 
   async function changePassword() {
     try {
@@ -33,7 +30,6 @@
       }
     }
   }
-  let isActive = false;
     async function logout() {
     await axios.post("/api/auth/logout");
     $user = null;
@@ -46,11 +42,7 @@
     <div class="navbar-brand">
       <span class="title">Cambiar contraseña</span>
     <span
-      class="navbar-burger burger"
-      class:is-active={isActive}
-      on:click={() => (isActive = !isActive)}
-      aria-expanded="false"
-      aria-label="menu">
+      class="navbar-burger burger">
       <span aria-hidden="true" />
       <span aria-hidden="true" />
       <span aria-hidden="true" />

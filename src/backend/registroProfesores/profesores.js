@@ -6,7 +6,7 @@ const router = Router()
 
 function ensureLogin(req, res, next) {
     if (!req.isAuthenticated()) {
-        return res.status(401).send({ message: 'Not authenticated' })
+        return res.status(401).send({ message: 'No está autenticado' })
     }
     next()
 }
@@ -15,7 +15,7 @@ router.get('/', ensureLogin, async (req, res) => {
     try {
         const profesores = await Profesor.find({ user_id: req.user._id }).exec()
         if (!profesores) {
-            throw new Error('No profesores')
+            throw new Error('No hay profesores')
         }
         res.status(200).json(profesores)
     } catch (error) {
@@ -30,7 +30,7 @@ router.post('/', ensureLogin, async (req, res) => {
     try {
         const profesor = await nuevoProfesor.save()
         if (!profesor) {
-            throw new Error('There was an error saving the profesor')
+            throw new Error('Hubo un error guardando el profesor')
         }
         res.status(200).json(profesor)
     } catch (error) {
@@ -53,7 +53,7 @@ router.delete('/:id', ensureLogin, async (req, res) => {
         const removed = await profesor.remove()
 
         if (!removed) {
-            throw new Error('There was a problem deleting the profesor')
+            throw new Error('Hubo un error eliminando el profesor')
         }
         res.status(200).json({ id })
     } catch (error) {
@@ -66,7 +66,7 @@ router.get('/:nombre', ensureLogin, async (req, res) => {
     try {
         const profesor = await Profesor.find({ nombre:nombre,user_id: req.user._id }).exec()
         if (!profesor) {
-            throw new Error('No profesores')
+            throw new Error('No hay profesores')
         }
         res.status(200).json(profesor)
     } catch (error) {
@@ -90,7 +90,7 @@ router.put('/:nombre', ensureLogin, async (req, res) => {
                 trimestre3:req.body.trimestre3
             })
         if (!profesor) {
-            throw new Error('No profesores')
+            throw new Error('No hay profesores')
         }
         res.status(200).json(profesor)
     } catch (error) {

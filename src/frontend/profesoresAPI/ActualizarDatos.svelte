@@ -104,7 +104,6 @@
 			$profesores = $profesores.filter(t => t._id !== id);
 	  	}
 	}
-    let isActive = false;
     async function logout() {
     await axios.post("/api/auth/logout");
     $user = null;
@@ -276,11 +275,7 @@ async function ordenarNombreAsc(){
 		  <div class="navbar-brand">
 			  <span class="title">Actualizar datos alumnos</span>
 			<span
-			  class="navbar-burger burger"
-			  class:is-active={isActive}
-			  on:click={() => (isActive = !isActive)}
-			  aria-expanded="false"
-			  aria-label="menu">
+			  class="navbar-burger burger">
 			  <span aria-hidden="true" />
 			  <span aria-hidden="true" />
 			  <span aria-hidden="true" />

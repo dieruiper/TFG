@@ -6,7 +6,6 @@ import axios from "axios";
 import { userAlum } from "../storesAlum";
 import { push } from "svelte-spa-router";
 export let params = {};
-let isActive;
 let usuario;
 let nuevoAlumno = {
 			nombre: "",
@@ -45,11 +44,7 @@ async function getAlumno (){
 		  <div class="navbar-brand">
 			  <span class="title">¡Bienvenido {usuario}!</span>
 			<span
-			  class="navbar-burger burger"
-			  class:is-active={isActive}
-			  on:click={() => (isActive = !isActive)}
-			  aria-expanded="false"
-			  aria-label="menu">
+			  class="navbar-burger burger">
 			  <span aria-hidden="true" />
 			  <span aria-hidden="true" />
 			  <span aria-hidden="true" />
@@ -71,13 +66,10 @@ async function getAlumno (){
 				<span></span>
 			</div>
 			<div class="pais">
-				<!--<img src="https://selimdoyranli.com/cdn/cartafifa/img/argentina.svg" alt="Argentina" draggable="false"/>-->
 			</div>
 		</div>
 		<div class="cartafifa-imagen">
-			<img src="https://static.vecteezy.com/system/resources/previews/001/204/011/non_2x/soccer-ball-png.png" alt="Messi" draggable="false"/>
-			
-			<!--<img src="https://selimdoyranli.com/cdn/cartafifa/img/messi.png" alt="Messi" draggable="false"/>-->
+			<img src="https://static.vecteezy.com/system/resources/previews/001/204/011/non_2x/soccer-ball-png.png" alt="Balon" draggable="false"/>
 			<div class="player-extra">
 			</div>
 		</div>
@@ -113,11 +105,10 @@ async function getAlumno (){
 				<span></span>
 			</div>
 			<div class="pais">
-				<!--<img src="https://selimdoyranli.com/cdn/cartafifa/img/argentina.svg" alt="Argentina" draggable="false"/>-->
 			</div>
 		</div>
 		<div class="cartasuperheroe-imagen">
-            <img class="superfoto" src="http://clipartmag.com/images/superhero-mask-clipart-29.png" alt="Hero" draggable="false"/>
+            <img class="superfoto" src="images/mascara-superheroe.png" alt="Hero" draggable="false"/>
 			<div class="player-extra">
 			</div>
 		</div>

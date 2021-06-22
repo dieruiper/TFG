@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
         const alumnosFifa = await AlumnoFifa.find({ user_id: req.user._id }).exec()
         console.log(alumnosFifa)
         if (!alumnosFifa) {
-            throw new Error('No alumnosFifa')
+            throw new Error('No hay alumno')
         }
         res.status(200).json(alumnosFifa)
     } catch (error) {
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     try {
         const alumno = await nuevoAlumnoFifa.save()
         if (!alumno) {
-            throw new Error('There was an error saving the alumno')
+            throw new Error('Ha habido un error guardando el alumno')
         }
         res.status(200).json(alumno)
     } catch (error) {
@@ -40,7 +40,7 @@ router.delete('/:nombre', async (req, res) => {
     try {
         const alumno = await AlumnoFifa.findById(nombre)
         if (!alumno) {
-            throw new Error('No alumno was found')
+            throw new Error('El alumno no ha sido encontrado')
         }
 
         if (alumno.nombre !== String(req.user.nombre)) {
@@ -50,7 +50,7 @@ router.delete('/:nombre', async (req, res) => {
         const removed = await alumno.remove()
 
         if (!removed) {
-            throw new Error('There was a problem deleting the alumno')
+            throw new Error('Hubo un problema eliminando el alumno')
         }
         res.status(200).json({ id })
     } catch (error) {
@@ -63,7 +63,7 @@ router.get('/:nombre', async (req, res) => {
     try {
         const alumno = await AlumnoFifa.find({ nombre:nombre }).exec()
         if (!alumno) {
-            throw new Error('No alumnosFifa')
+            throw new Error('No hay alumno')
         }
         res.status(200).json(alumno)
     } catch (error) {
@@ -98,7 +98,7 @@ router.put('/:nombre', async (req, res) => {
                 imagen: imagen
             })
         if (!alumno) {
-            throw new Error('No alumnosFifa')
+            throw new Error('No hay alumno')
         }
         res.status(200).json(alumno)
     } catch (error) {
